@@ -111,3 +111,17 @@ O produto utiliza filtros, recomendações baseadas em interesse e recursos de i
 ## 🔹 Stories / Histórias
 - 🇺🇸 **Stories:** [Go straight to our doc »](https://docs.google.com/document/d/1CXOtW04QAU5Ga5EG25S07dFhQhWlJ7T2vDgrL-e9Ujk/edit?usp=sharing)  
 - 🇧🇷 **Histórias:** [Vá direto para o nosso Docs »](https://docs.google.com/document/d/1CXOtW04QAU5Ga5EG25S07dFhQhWlJ7T2vDgrL-e9Ujk/edit?usp=sharing)
+
+---
+
+## 👥 Integrantes / Team
+
+| Nome | E-mail |
+|---|---|
+| Gustavo Torres Castro | [gtc@cesar.school](mailto:gtc@cesar.school) |
+| Bruno Augusto da Rocha Leite Filho | [barlf@cesar.school](mailto:barlf@cesar.school) |
+| Hélio de Moraes Rêgo Neto | [hmrn@cesar.school](mailto:hmrn@cesar.school) |
+| Maria Augusta Hatem da Fonte | [mahf@cesar.school](mailto:mahf@cesar.school) |
+| Rodrigo Vinhas Marques | [rvm2@cesar.school](mailto:rvm2@cesar.school) |
+| Igor Gabriel Dutra Silva | [igds@cesar.school](mailto:igds@cesar.school) |
+| João Luiz de Lima Bacelar | [jllb@cesar.school](mailto:jllb@cesar.school) |
