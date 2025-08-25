@@ -1,4 +1,4 @@
-# *Journal [Name]* – Interactive and personalized digital newspaper.  
+# *Journal [BRASA]* – Interactive and personalized digital newspaper.  
 
 
 [🇺🇸 English](#-english) · [🇧🇷 Português](#-português)
