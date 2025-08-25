@@ -56,6 +56,58 @@ The product uses filters, interest-based recommendations, and artificial intelli
 
 ---
 
+## 🇧🇷 Português
+**Projeto de FDS (Fundamentos de Desenvolvimento de Software) — 2º período, CESAR School**  
+**Stack:** Python · Django
+---
+
+## 🔹 Visão Geral  
+Um *portal de notícias inteligente* que oferece ao leitor não apenas informação, mas também *personalização, conveniência e análise*.  
+O produto utiliza filtros, recomendações baseadas em interesse e recursos de inteligência artificial para *resumir notícias em tempo real*, garantindo acessibilidade para diferentes perfis de leitores.  
+
+---
+
+## 🔹 Público-Alvo  
+- Leitores que consomem notícias diariamente e buscam conveniência.  
+- Usuários que desejam *notícias personalizadas* (de acordo com seus interesses).  
+- Pessoas com pouco tempo que valorizam *resumos rápidos e claros*.  
+- Estudantes, profissionais e leitores casuais que querem acompanhar *tendências semanais*.  
+
+---
+
+## 🔹 Problema que o Produto Resolve  
+- Dificuldade em *filtrar informações relevantes* em meio ao excesso de notícias.  
+- Falta de personalização em portais tradicionais.  
+- Baixa interatividade entre leitores e conteúdo.  
+- Consumo excessivo de tempo na leitura de matérias longas.  
+
+---
+
+## 🔹 Funcionalidades Principais  
+1. *Login do usuário* (perfil individual).  
+2. *Filtro de notícias* (por tema/categoria).  
+3. *Recomendações personalizadas* (com base nas preferências).  
+4. *Avaliação de notícias* (feedback do leitor).  
+5. *Destaques da semana* (ex.: top 3 notícias mais lidas).  
+6. *Lista “Ler mais tarde”* (salvar conteúdo para depois).  
+7. *Resumo automático com IA* (resumir notícias em tempo real).  
+
+---
+
+## 🔹 Diferenciais  
+- Integração de *IA para resumir notícias*.  
+- Interface personalizada, adaptada ao perfil do usuário.  
+- Equilíbrio entre *profundidade e praticidade*.  
+
+---
+
+## 🔹 Objetivos  
+- Criar uma experiência de leitura mais *eficiente e agradável*.  
+- Consolidar o jornal como *portal de referência* no consumo digital de notícias.  
+- Agregar valor por meio de tecnologia e personalização.
+
+---
+
 ## 🔹 Stories / Histórias
 - 🇺🇸 **Stories:** [Go straight to our doc »](https://docs.google.com/document/d/1CXOtW04QAU5Ga5EG25S07dFhQhWlJ7T2vDgrL-e9Ujk/edit?usp=sharing)  
 - 🇧🇷 **Histórias:** [Vá direto para o nosso Docs »](https://docs.google.com/document/d/1CXOtW04QAU5Ga5EG25S07dFhQhWlJ7T2vDgrL-e9Ujk/edit?usp=sharing)
