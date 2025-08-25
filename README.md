@@ -1,6 +1,5 @@
 # *Journal [BRASA]* – Interactive and personalized digital newspaper.  
 
-
 [🇺🇸 English](#-english) · [🇧🇷 Português](#-português)
 
 ---
@@ -54,3 +53,9 @@ The product uses filters, interest-based recommendations, and artificial intelli
 - Create a more *efficient and enjoyable* reading experience.  
 - Establish the newspaper as a *reference portal* for digital news consumption.  
 - Add value through technology and personalization.
+
+---
+
+## 🔹 Stories / Histórias
+- 🇺🇸 **Stories:** [Go straight to our doc »](https://docs.google.com/document/d/1CXOtW04QAU5Ga5EG25S07dFhQhWlJ7T2vDgrL-e9Ujk/edit?usp=sharing)  
+- 🇧🇷 **Histórias:** [Vá direto para o nosso Docs »](https://docs.google.com/document/d/1CXOtW04QAU5Ga5EG25S07dFhQhWlJ7T2vDgrL-e9Ujk/edit?usp=sharing)
