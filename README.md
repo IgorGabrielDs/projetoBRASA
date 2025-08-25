@@ -1,4 +1,5 @@
-# BRASA
+# *Journal [Name]* – Interactive and personalized digital newspaper.  
+
 
 [🇺🇸 English](#-english) · [🇧🇷 Português](#-português)
 
@@ -7,9 +8,6 @@
 ## 🇺🇸 English
 **FDS (Software Development Fundamentals) project — 2nd period, CESAR School**  
 **Stack:** Python · Django
-
-*Journal [Name]* – Interactive and personalized digital newspaper.  
-
 ---
 
 ## 🔹 Overview  
