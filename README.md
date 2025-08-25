@@ -14,6 +14,9 @@ Smart News Assistant — your co-pilot for discovering, understanding, and organ
 
 In each conversation, the chatbot centralizes your news consumption: filtering, recommending, ranking, summarizing, and organizing — all so you spend less time searching and more time understanding.
 
+
+
+
 🇧🇷 Português
 Projeto de FDS (Fundamentos de Desenvolvimento de Software) — 2º período, CESAR School
 
