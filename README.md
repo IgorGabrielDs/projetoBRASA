@@ -66,6 +66,20 @@ The product uses filters, interest-based recommendations, and artificial intelli
 
 ---
 
+## 👥 Team
+
+| Name | E-mail |
+|---|---|
+| Gustavo Torres Castro | [gtc@cesar.school](mailto:gtc@cesar.school) |
+| Bruno Augusto da Rocha Leite Filho | [barlf@cesar.school](mailto:barlf@cesar.school) |
+| Hélio de Moraes Rêgo Neto | [hmrn@cesar.school](mailto:hmrn@cesar.school) |
+| Maria Augusta Hatem da Fonte | [mahf@cesar.school](mailto:mahf@cesar.school) |
+| Rodrigo Vinhas Marques | [rvm2@cesar.school](mailto:rvm2@cesar.school) |
+| Igor Gabriel Dutra Silva | [igds@cesar.school](mailto:igds@cesar.school) |
+| João Luiz de Lima Bacelar | [jllb@cesar.school](mailto:jllb@cesar.school) |
+
+---
+
 ## 🇧🇷 Português
 **Projeto de FDS (Fundamentos de Desenvolvimento de Software) — 2º período, CESAR School**  
 **Stack:** Python · Django
@@ -128,7 +142,7 @@ O produto utiliza filtros, recomendações baseadas em interesse e recursos de i
 
 ---
 
-## 👥 Integrantes / Team
+## 👥 Integrantes
 
 | Nome | E-mail |
 |---|---|
