@@ -56,6 +56,16 @@ The product uses filters, interest-based recommendations, and artificial intelli
 
 ---
 
+## 🔹 Stories / Histórias
+- 🇺🇸 **Stories:** [Go straight to our doc »](https://docs.google.com/document/d/1CXOtW04QAU5Ga5EG25S07dFhQhWlJ7T2vDgrL-e9Ujk/edit?usp=sharing)
+
+---
+
+## 🔹 Prototype / Protótipo
+- US **Figma** [Go straight to our prototype Lo-Fi »](https://www.figma.com/board/lzG3Xxdd2BwITojMThqPFT/Hist%C3%B3rias-FDS-G5?node-id=0-1&t=QG70oTzm6ELrQHIZ-1)
+
+---
+
 ## 🇧🇷 Português
 **Projeto de FDS (Fundamentos de Desenvolvimento de Software) — 2º período, CESAR School**  
 **Stack:** Python · Django
@@ -108,14 +118,12 @@ O produto utiliza filtros, recomendações baseadas em interesse e recursos de i
 
 ---
 
-## 🔹 Stories / Histórias
-- 🇺🇸 **Stories:** [Go straight to our doc »](https://docs.google.com/document/d/1CXOtW04QAU5Ga5EG25S07dFhQhWlJ7T2vDgrL-e9Ujk/edit?usp=sharing)  
+## 🔹Histórias
 - 🇧🇷 **Histórias:** [Vá direto para o nosso Docs »](https://docs.google.com/document/d/1CXOtW04QAU5Ga5EG25S07dFhQhWlJ7T2vDgrL-e9Ujk/edit?usp=sharing)
 
 ---
 
-## 🔹 Prototype / Protótipo
-- US **Figma** [Go straight to our prototype Lo-Fi »](https://www.figma.com/board/lzG3Xxdd2BwITojMThqPFT/Hist%C3%B3rias-FDS-G5?node-id=0-1&t=QG70oTzm6ELrQHIZ-1)
+## 🔹 Protótipo
 - BR **Figma** [Vá direto para o nosso protótipo Lo-Fi »](https://www.figma.com/board/lzG3Xxdd2BwITojMThqPFT/Hist%C3%B3rias-FDS-G5?node-id=0-1&t=QG70oTzm6ELrQHIZ-1)
 
 ---
