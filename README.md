@@ -66,6 +66,11 @@ The product uses filters, interest-based recommendations, and artificial intelli
 
 ---
 
+## 🔹Screencast
+- [Go to the presentation video of our low quality prototype »]()
+
+---
+
 ## 👥 Team
 
 | Name | E-mail |
@@ -139,6 +144,11 @@ O produto utiliza filtros, recomendações baseadas em interesse e recursos de i
 
 ## 🔹 Protótipo
 - **Figma** [Vá direto para o nosso protótipo Lo-Fi »](https://www.figma.com/board/lzG3Xxdd2BwITojMThqPFT/Hist%C3%B3rias-FDS-G5?node-id=0-1&t=QG70oTzm6ELrQHIZ-1)
+
+---
+
+## 🔹Screencast
+- [Vá para o vídeo de apresentação do nosso protótipo de baixa qualidade »]()
 
 ---
 
