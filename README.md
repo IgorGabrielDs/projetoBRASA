@@ -74,7 +74,7 @@ The product uses filters, interest-based recommendations, and artificial intelli
 ---
 
 ## 🔹Screencast
-- [Go to the presentation video of our low quality prototype »]()
+- [Go to the presentation video of our low quality prototype »](https://youtu.be/FqqGAaR9P8s)
 
 ---
 
@@ -162,7 +162,7 @@ O produto utiliza filtros, recomendações baseadas em interesse e recursos de i
 ---
 
 ## 🔹Screencast
-- [Vá para o vídeo de apresentação do nosso protótipo de baixa qualidade »]()
+- [Vá para o vídeo de apresentação do nosso protótipo de baixa qualidade »](https://youtu.be/FqqGAaR9P8s)
 
 ---
 
