@@ -61,6 +61,13 @@ The product uses filters, interest-based recommendations, and artificial intelli
 
 ---
 
+## 🔹Print of our backlog and sprint board
+
+<img width="1452" height="596" alt="image" src="https://github.com/user-attachments/assets/2590ca65-5eb1-4ad5-9c36-8d01149ea4e1" />
+<img width="1466" height="813" alt="image" src="https://github.com/user-attachments/assets/ea2f737d-4cd3-4ec1-8b34-bb4bc2e89c80" />
+
+---
+
 ## 🔹 Prototype / Protótipo
 - **Figma** [Go straight to our prototype Lo-Fi »](https://www.figma.com/board/lzG3Xxdd2BwITojMThqPFT/Hist%C3%B3rias-FDS-G5?node-id=0-1&t=QG70oTzm6ELrQHIZ-1)
 
@@ -139,6 +146,13 @@ O produto utiliza filtros, recomendações baseadas em interesse e recursos de i
 
 ## 🔹Histórias
 - **Histórias:** [Vá direto para o nosso Docs »](https://docs.google.com/document/d/1CXOtW04QAU5Ga5EG25S07dFhQhWlJ7T2vDgrL-e9Ujk/edit?usp=sharing)
+
+---
+
+## 🔹Print do nosso backlog e quadro da sprint
+
+<img width="1452" height="596" alt="image" src="https://github.com/user-attachments/assets/2590ca65-5eb1-4ad5-9c36-8d01149ea4e1" />
+<img width="1466" height="813" alt="image" src="https://github.com/user-attachments/assets/ea2f737d-4cd3-4ec1-8b34-bb4bc2e89c80" />
 
 ---
 
