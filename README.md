@@ -33,7 +33,9 @@ Além disso, gravamos um **screencast** apresentando o protótipo, disponível n
   <img src="https://github.com/user-attachments/assets/d6f5c450-11bb-4605-a322-84f575013a3b" width="300" />
 </p>
 
-### Jira [Board | Blackboard | Sprint]:
+### Jira [Board]:
+<img width="1407" height="671" alt="image" src="https://github.com/user-attachments/assets/e933a65f-cf48-4484-baed-4915783f937a" />
+
 
 <h2 id="softwares-e-apps">💻 Softwares e Apps</h2>
 
