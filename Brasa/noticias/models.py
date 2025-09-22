@@ -28,22 +28,3 @@ class Noticia(models.Model):
 
     def __str__(self):
         return self.titulo
-
-
-class Voto(models.Model):
-    UP = 1
-    DOWN = -1
-    VALORES = ((UP, 'Upvote'), (DOWN, 'Downvote'))
-
-    noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE, related_name='votos')
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='votos')
-    valor = models.SmallIntegerField(choices=VALORES)
-    atualizado_em = models.DateTimeField(auto_now=True)
-    criado_em = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        unique_together = ('noticia', 'usuario')          # 1 voto por usuário por notícia
-        indexes = [models.Index(fields=['noticia', 'usuario'])]
-
-    def __str__(self):
-        return f'{self.usuario} → {self.noticia} = {self.valor}'
