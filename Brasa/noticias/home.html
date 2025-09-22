@@ -93,7 +93,7 @@
             document.querySelectorAll('.save-btn').forEach(button => {
                 button.addEventListener('click', function() {
                     const noticiaId = this.dataset.id;
-                    const url = `/salvar/${noticiaId}/`; // A URL que configuramos no Passo 4
+                    const url = `/noticias/salvar/${noticiaId}/`;
 
                     // Envia a requisição para o servidor
                     fetch(url, {
@@ -119,4 +119,5 @@
     </script>
 </body>
 </html>
+
 
