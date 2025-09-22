@@ -9,7 +9,8 @@
 ## 🗂 Sumário
 
 - [💻 Softwares e Apps](#softwares-e-apps)  
-- [🚧 Primeira Entrega](#primeira-entrega)  
+- [🚧 Primeira Entrega](#primeira-entrega)
+- [🚧 Segunda Entrega](#segunda-entrega)
 - [👨‍👩‍👧‍👦 Participantes](#participantes)  
 - [📜 Licença](#licenca)  
 
@@ -43,6 +44,16 @@ Além disso, gravamos um **screencast** apresentando o protótipo, disponível n
 - **![](https://img.shields.io/badge/Django-092E20?style=flat&logo=django&logoColor=green)**: Desenvolvimento do **backend**, gerenciamento de **banco de dados** e **autenticação**.  
 - **![](https://img.shields.io/badge/-Jira-05122A?style=flat&logo=jira)**: Organização de **tarefas**, acompanhamento de **progresso** e **sprints ágeis**.  
 - **![](https://img.shields.io/badge/Google%20Docs-4285F4?style=flat&logo=google-docs&logoColor=white)**: Criação e edição de **documentos colaborativos**.
+
+<h2 id="segunda-entrega">🚧 Segunda Entrega</h2>
+
+### Issue/Bug Tracker
+
+### Deploy com Screencast
+
+### Relatório Programação em Par
+
+### Jira [Board]:
 
 <h2 id="participantes">👨‍👩‍👧‍👦 Participantes</h2>
 
