@@ -14,8 +14,7 @@ class Noticia(models.Model):
         ('entretenimento', 'Entretenimento'),
     ])
     destaque = models.BooleanField(default=False)
-    salvo_por = models.ManyToManyField(User, related_name='noticias_salvas', blank=True)
-
+    
     # agregados
     def score(self):
         from django.db.models import Sum
@@ -29,4 +28,5 @@ class Noticia(models.Model):
 
     def __str__(self):
         return self.titulo
+
 
