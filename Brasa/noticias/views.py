@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib import messages
-from .models import Noticia, Voto
+from .models import Noticia
 
 def home(request):
     noticias = Noticia.objects.order_by('-data_publicacao')
@@ -90,3 +90,4 @@ def votar(request, pk):
 
 
     return redirect('noticia_detalhe', pk=pk)
+
