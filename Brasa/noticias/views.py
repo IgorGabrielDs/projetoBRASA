@@ -15,7 +15,7 @@ def home(request):
         'noticias': noticias,   
         'noticias_salvas_ids': noticias_salvas_ids,
     }
-    return render(request, 'portal/home.html', contexto)
+    return render(request, 'home.html', contexto)
 
 @login_required
 def noticias_salvas(request):
@@ -23,7 +23,7 @@ def noticias_salvas(request):
     contexto = {
         'noticias': noticias,
     }
-    return render(request, 'portal/noticias_salvas.html', contexto)
+    return render(request, 'noticias_salvas.html', contexto)
 
 @login_required
 def botao_salvar_noticia(request, noticia_id):
@@ -90,4 +90,5 @@ def votar(request, pk):
 
 
     return redirect('noticia_detalhe', pk=pk)
+
 
