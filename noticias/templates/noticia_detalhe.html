@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ noticia.titulo }}</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; line-height: 1.6; background-color: #f4f4f4; }
+        .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
+        h1 { color: #c0392b; margin-top: 0; }
+        .noticia-meta { font-size: 0.9em; color: #666; margin-bottom: 20px; }
+        .noticia-conteudo { text-align: justify; }
+        a { text-decoration: none; color: #007bff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ noticia.titulo }}</h1>
+        <div class="noticia-meta">
+            Por <strong>{{ noticia.autor }}</strong> em {{ noticia.data_publicacao|date:"d/m/Y H:i" }} | Categoria: {{ noticia.get_categoria_display }}
+        </div>
+        <div class="noticia-conteudo">
+            {{ noticia.conteudo|linebreaks }}
+        </div>
+        <p><a href="#" onclick="window.close();">Fechar</a></p>
+    </div>
+</body>
+</html>

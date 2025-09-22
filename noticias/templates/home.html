@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token }}">
+    <title>Jornal BRASA - Últimas Notícias</title>
+    <style>
+        body { font-family: sans-serif; line-height: 1.6; margin: 0; padding: 20px; background-color: #f4f4f4; }
+        .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        h1 { color: #333; margin: 0; }
+        .header a { text-decoration: none; background-color: #007bff; color: white; padding: 8px 15px; border-radius: 5px; font-size: 0.9em; }
+        .noticia { border-bottom: 1px solid #ddd; padding-bottom: 20px; margin-bottom: 20px; }
+        .noticia h2 { color: #c0392b; margin-top: 0; }
+        .noticia-meta { font-size: 0.9em; color: #666; margin-bottom: 10px; }
+        .noticia-conteudo { text-align: justify; margin-bottom: 10px; }
+        .save-btn { background-color: #007bff; color: #fff; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+        .save-btn.salvo { background-color: #ffdd57; color: #333; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Jornal BRASA</h1>
+            {% if user.is_authenticated %}
+                <a href="{% url 'noticias_salvas' %}">Meus Itens Salvos</a>
+            {% else %}
+                <a href="{% url 'admin:login' %}">Login</a>
+            {% endif %}
+        </div>
+        
+        {% for noticia in noticias %}
+            <article class="noticia">
+                <h2>{{ noticia.titulo }}</h2>
+                <div class="noticia-meta">
+                    Por <strong>{{ noticia.autor }}</strong> em {{ noticia.data_publicacao|date:"d/m/Y H:i" }} | Categoria: {{ noticia.get_categoria_display }}
+                </div>
+                <div class="noticia-conteudo">{{ noticia.conteudo|linebreaks }}</div>
+                
+                {% if user.is_authenticated %}
+                    <button 
+                        class="save-btn {% if noticia.id in noticias_salvas_ids %}salvo{% endif %}" 
+                        data-id="{{ noticia.id }}">
+                        {% if noticia.id in noticias_salvas_ids %}Salvo{% else %}Salvar{% endif %}
+                    </button>
+                {% endif %}
+            </article>
+        {% empty %}
+            <p>Nenhuma notícia foi publicada ainda.</p>
+        {% endfor %}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            document.querySelectorAll('.save-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const noticiaId = this.dataset.id;
+                    fetch(`/noticias/salvar/${noticiaId}/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': csrfToken,
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.salvo){
+                            this.classList.add('salvo');
+                            this.innerText = 'Salvo';
+                        } else {
+                            this.classList.remove('salvo');
+                            this.innerText = 'Salvar';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jornal BRASA - Meus Itens Salvos</title>
+    <style>
+        body { font-family: sans-serif; margin: 20px; background-color: #f4f4f4; }
+        .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
+        h1 { color: #333; margin: 0; }
+        .header a { text-decoration: none; background-color: #6c757d; color: white; padding: 8px 15px; border-radius: 5px; font-size: 0.9em; }
+        .noticia { border-bottom: 1px solid #ddd; padding: 10px 0; margin-bottom: 10px; }
+        .noticia:last-child { border-bottom: none; }
+        .noticia h2 { color: #c0392b; margin: 0; display: inline; }
+        .ver-mais { margin-left: 10px; text-decoration: none; color: #007bff; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Meus Itens Salvos</h1>
+            <a href="{% url 'home' %}">Voltar para a Home</a>
+        </div>
+        
+        {% for noticia in noticias %}
+            <article class="noticia">
+                <h2>{{ noticia.titulo }}</h2>
+                <a class="ver-mais" href="{% url 'noticia_detalhe' noticia.pk %}" target="_blank">Ver mais</a>
+            </article>
+        {% empty %}
+            <p>Você ainda não salvou nenhuma notícia.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
