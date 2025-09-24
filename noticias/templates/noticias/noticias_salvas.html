@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Meus Itens Salvos — BRASA{% endblock %}
+
+{% block content %}
+<div class="container mx-auto max-w-3xl bg-white rounded-lg p-6">
+  <div class="flex items-center justify-between border-b pb-3 mb-6">
+    <h1 class="text-2xl font-semibold text-gray-800">Meus Itens Salvos</h1>
+    <a href="{% url 'noticias:index' %}"
+       class="px-3 py-2 rounded-md text-white bg-gray-600 hover:bg-gray-700 text-sm">
+      Voltar para a Home
+    </a>
+  </div>
+
+  <div class="saved-list" id="saved-list">
+    {% if noticias %}
+      {% for noticia in noticias %}
+        <article class="article-saved border-b last:border-b-0 pb-6 mb-6">
+          <h2 class="text-xl font-semibold text-brand-600">
+            <a href="{% url 'noticias:noticia_detalhe' noticia.pk %}" class="hover:underline">
+              {{ noticia.titulo }}
+            </a>
+          </h2>
+          <div class="text-sm text-gray-600 mb-2">
+            Por <strong>{{ noticia.autor }}</strong>
+            em {{ noticia.data_publicacao|date:"d/m/Y H:i" }}
+            {% if noticia.get_categoria_display %} | Categoria: {{ noticia.get_categoria_display }}{% endif %}
+          </div>
+          {% if noticia.imagem %}
+            <img src="{{ noticia.imagem.url }}" alt="" class="rounded-md mb-3">
+          {% endif %}
+          <p class="text-gray-800 leading-relaxed">
+            {{ noticia.resumo|default:noticia.conteudo|truncatechars:280 }}
+          </p>
+
+          {# botão salvar/retirar também aparece aqui #}
+          {% include "noticias/partials/_salvar_btn.html" with noticia=noticia %}
+        </article>
+      {% endfor %}
+    {% else %}
+      <p class="text-gray-700 muted" id="empty-saved">Você ainda não salvou nenhuma notícia.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'noticias/js/salvar.js' %}"></script>
+{% endblock %}
