@@ -132,6 +132,24 @@ def votar(request, pk):
 
     return redirect('noticias:noticia_detalhe', pk=pk)
 
+def signup(request):
+    next_url = request.GET.get("next") or request.POST.get("next")
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            # autentica e loga automaticamente
+            username = form.cleaned_data.get("username")
+            raw_password = form.cleaned_data.get("password1")
+            user = authenticate(username=username, password=raw_password)
+            if user:
+                auth_login(request, user)
+            messages.success(request, "Conta criada com sucesso! Bem-vindo(a).")
+            return redirect(next_url or "noticias:index")
+    else:
+        form = UserCreationForm()
+    return render(request, "registration/signup.html", {"form": form, "next": next_url})
+
 @login_required
 def minhas_salvas(request):
     noticias = Noticia.objects.filter(salvos=request.user).order_by('-salvo__criado_em')
