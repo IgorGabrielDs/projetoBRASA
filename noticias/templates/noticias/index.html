@@ -32,10 +32,17 @@
         <div class="meta">
           <a class="headline" href="{% url 'noticias:noticia_detalhe' n.pk %}">{{ n.titulo }}</a>
           <div class="muted small">{{ n.criado_em|date:"d/m/Y H:i" }}</div>
+
+          {# Botão Salvar para ler mais tarde #}
+          {% include "noticias/partials/_salvar_btn.html" with noticia=n %}
         </div>
       </li>
     {% empty %}
       <li>Nenhuma notícia ainda.</li>
     {% endfor %}
   </ul>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'noticias/js/salvar.js' %}"></script>
 {% endblock %}
