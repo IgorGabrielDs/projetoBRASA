@@ -1,6 +1,5 @@
 /* ===============================
-   BRASA • Página de Detalhe
-   Baseado no seu style4.css
+                BRASA
    =============================== */
 
 :root{
@@ -65,14 +64,14 @@ a{ color:inherit; text-decoration:none }
 }
 .article-cover {
   margin: 18px 0 22px;
-  text-align: left;   /* garante alinhamento à esquerda */
+  text-align: left;
 }
 .article-cover img {
-  float: left;         /* fixa no lado esquerdo */
-  max-width: 350px;    /* define um tamanho máximo */
-  width: 100%;         /* ocupa até o máximo definido */
-  height: auto;        /* mantém proporção */
-  margin: 0 20px 20px 0;  /* espaçamento à direita e embaixo */
+  float: left;
+  max-width: 350px;
+  width: 100%;
+  height: auto;
+  margin: 0 20px 20px 0;
   border-radius: 12px;
   box-shadow: 0 10px 24px rgba(0,0,0,.06);
 }
@@ -109,7 +108,7 @@ a{ color:inherit; text-decoration:none }
 
 .vote-btn svg{
   width:22px; height:22px;
-  fill:var(--brand); /* seta sólida em laranja */
+  fill:var(--brand);
   transition: transform .15s ease, fill .15s ease;
 }
 .vote-btn.up:hover svg{ transform:translateY(-2px) }
@@ -125,7 +124,7 @@ a{ color:inherit; text-decoration:none }
   background: rgba(226, 77, 45, .08);
 }
 .vote-btn.is-active svg{
-  fill: var(--brand-ink); /* um pouco mais escuro */
+  fill: var(--brand-ink);
 }
 
 /* Quando houver foco via teclado */
@@ -151,6 +150,7 @@ a{ color:inherit; text-decoration:none }
   .vote-btn{ padding:8px 12px }
   .vote-count{ font-size:14px }
 }
+
 /* ===== Topbar ===== */
 .topbar{
   position: sticky; top: 0; z-index: 40;
@@ -219,9 +219,10 @@ a{ color:inherit; text-decoration:none }
 /* Responsivo */
 @media (max-width: 720px){
   .topbar-inner{ grid-template-columns: auto 1fr auto; gap:10px; }
-  .topnav{ display:none; }     /* simplifica em telas pequenas */
+  .topnav{ display:none; }
   .search{ max-width: 180px; }
 }
+
 /* ===== Hamburguer + Drawer ===== */
 .hamburger{
   display:flex; align-items:center; justify-content:center;
@@ -271,10 +272,12 @@ a{ color:inherit; text-decoration:none }
 @media (max-width: 720px){
   .topnav{ display:none; }
 }
+
 .chip{
   display:inline-block; padding:4px 8px; border:1px solid var(--line);
   border-radius:999px; font-size:12px; margin-right:6px;
 }
+
 /* Oculta qualquer elemento com atributo hidden */
 [hidden]{ display:none !important; }
 
@@ -300,6 +303,8 @@ a{ color:inherit; text-decoration:none }
 
 /* Quando o drawer abre, travamos o scroll do body */
 .no-scroll{ overflow:hidden; }
+
+/* ===== Top 3 da semana ===== */
 .top3{
   padding: 12px 16px; margin: 8px 0 18px;
   border: 1px solid var(--line); border-radius: 12px; background: #fff;
@@ -308,3 +313,90 @@ a{ color:inherit; text-decoration:none }
 .top3-list{ list-style: decimal; margin: 0 0 0 18px; padding: 0; display:flex; flex-direction:column; gap:8px; }
 .top3-item .headline{ font-weight: 700; display:block; }
 .top3-item .muted.small{ font-size: 12px; color: var(--muted); }
+
+/* ===========================================================
+   SALVAR PARA LER MAIS TARDE — botão, contador e estados
+   =========================================================== */
+
+/* Utilitário simples para margem-top usado no partial */
+.mt-3{ margin-top: 12px; }
+
+/* Contêiner do botão (usa o <div> do partial) */
+.salvar-btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 12px;
+  border:1px solid var(--line);
+  background:#fff;
+  color:#374151; /* cinza 700 */
+  border-radius:10px;
+  font-size:14px; font-weight:600;
+  cursor:pointer;
+  transition: box-shadow .15s, transform .04s, border-color .15s, background-color .15s, color .15s;
+  margin-top:8px; /* fica logo abaixo da data */
+}
+.salvar-btn .icon{ font-size:16px; line-height:1; }
+.salvar-btn:hover{ box-shadow:0 6px 14px rgba(0,0,0,.08); background:#f9fafb; }
+.salvar-btn:active{ transform: translateY(1px); }
+.salvar-btn:focus-visible{ outline: 3px solid rgba(226,77,45,.35); outline-offset: 2px; }
+.salvar-btn[disabled]{ opacity:.6; cursor:not-allowed; }
+
+/* Estado ativo (quando salvo). Você pode aplicar via
+   aria-pressed="true" no HTML OU via classe .is-saved no JS. */
+.salvar-btn[aria-pressed="true"],
+.salvar-btn.is-saved{
+  background: rgba(226,77,45,.08);
+  border-color: rgba(226,77,45,.35);
+  color: var(--brand-ink);
+}
+
+/* Contador de salvos ao lado do botão */
+.saved-count{
+  font-size: 13px; color: var(--muted);
+}
+
+/* Em listas (home), organiza melhor botão + contador */
+.news-item .meta .salvar-btn{ margin-top:6px; }
+.news-item .meta .saved-count{ margin-left:8px; }
+
+/* Cores */
+.bg-brand-600{ background: var(--brand) !important; }
+.text-white{ color:#fff !important; }
+.border-brand-600{ border-color: var(--brand) !important; }
+.text-gray-700{ color:#374151 !important; }
+.border-gray-300{ border-color:#d1d5db !important; }
+
+/* Hover utility com escape do ":" no seletor */
+.hover\:bg-gray-50:hover{ background:#f9fafb !important; }
+
+/* Quando marcado como salvo (JS também alterna aria-pressed) */
+.salvar-btn.bg-brand-600{
+  background: var(--brand) !important;
+  color:#fff !important;
+  border-color: var(--brand) !important;
+}
+
+/* ===========================================================
+   PÁGINA "MEUS ITENS SALVOS" — toques visuais
+   =========================================================== */
+
+.saved-list article,
+.article-saved{
+  border-bottom:1px solid var(--line);
+  padding-bottom:16px; margin-bottom:16px;
+}
+.article-saved h2 .headline{ font-weight:700; }
+.article-saved .muted{ color:var(--muted); font-size:13px; }
+
+/* Cards mais limpos se você usar container branco */
+.salvos-card{
+  background:#fff; border:1px solid var(--line);
+  border-radius:12px; padding:16px;
+}
+/* ===== Estilo do botão "Ver mais tarde" ===== */
+.salvar-btn.salvar-outline[aria-pressed="true"],
+.salvar-btn.salvar-outline.is-saved,
+.salvar-btn.salvar-outline.bg-brand-600{  /* compatível com o seu JS atual */
+  background: var(--brand) !important;
+  color: #fff !important;
+  border-color: var(--brand) !important;
+}
