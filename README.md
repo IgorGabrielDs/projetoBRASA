@@ -61,7 +61,7 @@ Além disso, gravamos um **screencast** apresentando o protótipo, disponível n
 |---------------------------------|---------------------------------|---------------------------------|---------------------------------|
 | **Igor Gabriel** | **Bruno Augusto** | **Gustavo Torres** | **Rodrigo Vinhas** |
 | Desenvolvedor Backend & Designer| Desenvolvedor Frontend & Backend| Desenvolvedor Backend| Desenvolvedor Backend|
-| <img src="https://github.com/user-attachments/assets/0b86a019-1696-4c26-833c-8068439453cc" width="120" height="120" /> | <img src="[https://avatars.githubusercontent.com/u/202868188?v=4](https://avatars.githubusercontent.com/u/200817151?s=400&u=90781983be0295c01c69a71ba3d41faa8aa5c038&v=4)" width="120" height="120"> | <img src="https://avatars.githubusercontent.com/u/60516339?v=4" width="120" height="120"> | <img src="https://via.placeholder.com/120" width="120" height="120"> |
+| <img src="https://avatars.githubusercontent.com/u/228530710?v=4" width="120" height="120" /> | <img src="https://avatars.githubusercontent.com/u/202868188?v=4" width="120" height="120"> | <img src="https://avatars.githubusercontent.com/u/60516339?v=4" width="120" height="120"> | <img src="https://via.placeholder.com/120" width="120" height="120"> |
 | **João Luis** | **Maria Augusta** | **Hélio de Moraes** | **Luca Albuquerque** |
 | Desenvolvedor Backend | Desenvolvedora Backend | Desenvolvedor Backend| Monitor do projeto |
 
