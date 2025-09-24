@@ -55,7 +55,6 @@ class Voto(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     valor = models.IntegerField()  # 1 ou -1
 
-    # NEW
     criado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
 
@@ -66,3 +65,12 @@ class Voto(models.Model):
 
     def __str__(self):
         return f'{self.usuario} -> {self.valor} em {self.noticia}'
+    
+class Salvo(models.Model):
+    usuario = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    noticia = models.ForeignKey(Noticia, on_delete=models.CASCADE)
+    criado_em = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        unique_together = ('usuario', 'noticia')
+        ordering = ['-criado_em']
