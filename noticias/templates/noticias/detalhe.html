@@ -10,6 +10,9 @@
       <p class="article-meta muted" style="margin-top:8px;">
         Publicado em {{ noticia.criado_em|date:"d/m/Y H:i" }}
       </p>
+
+      <!-- Botão Salvar para ler mais tarde -->
+      {% include "noticias/partials/_salvar_btn.html" with noticia=noticia %}
     </header>
 
     {% if noticia.imagem %}
@@ -73,4 +76,5 @@
 
 {% block scripts %}
   <script src="{% static 'noticias/js/votar.js' %}"></script>
+  <script src="{% static 'noticias/js/salvar.js' %}"></script>
 {% endblock %}
