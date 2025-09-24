@@ -1,0 +1,144 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}BRASA{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'noticias/css/detalhe.css' %}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+  <!-- Topo BRASA -->
+  <header class="topbar">
+    <div class="topbar-inner">
+
+      <!-- Botão hamburguer -->
+      <button class="hamburger" aria-label="Abrir filtros"
+              aria-controls="filters-drawer" aria-expanded="false">
+        <span class="sr-only">Abrir filtros</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true" class="hamburger-icon">
+          <path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/>
+        </svg>
+      </button>
+
+      <!-- Logo -->
+      <a class="logo" href="{% url 'noticias:index' %}">BRASA<span class="accent">•</span></a>
+
+      <!-- Navegação -->
+      <nav class="topnav" aria-label="Seções">
+        <a href="{% url 'noticias:index' %}" class="nav-link is-active">Início</a>
+        <a href="#" class="nav-link">Brasil</a>
+        <a href="#" class="nav-link">Mundo</a>
+        <a href="#" class="nav-link">Tecnologia</a>
+      </nav>
+
+      <!-- Busca -->
+      <form class="search" role="search" aria-label="Buscar">
+        <input type="search" placeholder="Buscar no BRASA" aria-label="Buscar">
+        <button type="button" aria-label="Pesquisar">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21 20.3l-4.7-4.7a8 8 0 10-1.4 1.4L19.6 22 21 20.6zM10 16a6 6 0 110-12 6 6 0 010 12z"/>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Ações usuário -->
+      <div class="user-actions">
+        {% if user.is_authenticated %}
+          <span class="hi">Olá, {{ user.username }}</span>
+          <a class="btn-ghost" href="{% url 'logout' %}">Sair</a>
+        {% else %}
+          <a class="btn" href="{% url 'login' %}">Entrar</a>
+          <a class="btn-ghost" href="{% url 'noticias:signup' %}">Criar conta</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- Drawer de filtros -->
+  <aside id="filters-drawer" class="drawer" aria-hidden="true">
+    <div class="drawer-header">
+      <h2>Filtros</h2>
+      <button class="drawer-close" aria-label="Fechar filtros">×</button>
+    </div>
+
+    <div class="drawer-content">
+      <form id="filters-form" class="filters-form" method="get" action="{% url 'noticias:index' %}">
+        <fieldset>
+          <legend>Assuntos</legend>
+          {% if assuntos %}
+            {% for a in assuntos %}
+              <label>
+                <input type="checkbox" name="assunto" value="{{ a.slug }}"
+                       {% if a.slug in selecionados %}checked{% endif %}>
+                {{ a.nome }}
+              </label>
+            {% endfor %}
+          {% else %}
+            <p class="muted small">Crie assuntos no admin.</p>
+          {% endif %}
+        </fieldset>
+
+        <fieldset>
+          <legend>Período</legend>
+          <label><input type="radio" name="periodo" value="24h" {% if periodo == '24h' %}checked{% endif %}> Últimas 24h</label>
+          <label><input type="radio" name="periodo" value="7d" {% if periodo == '7d' %}checked{% endif %}> Últimos 7 dias</label>
+          <label><input type="radio" name="periodo" value="30d" {% if periodo == '30d' %}checked{% endif %}> Últimos 30 dias</label>
+          <label><input type="radio" name="periodo" value="" {% if not periodo %}checked{% endif %}> Qualquer data</label>
+        </fieldset>
+
+        <fieldset>
+          <legend>Ordenar por</legend>
+          <label><input type="radio" name="sort" value="recentes" {% if sort == 'recentes' %}checked{% endif %}> Mais recentes</label>
+          <label><input type="radio" name="sort" value="populares" {% if sort == 'populares' %}checked{% endif %}> Mais populares</label>
+        </fieldset>
+      </form>
+    </div>
+
+    <div class="drawer-actions">
+      <button type="submit" form="filters-form" class="btn">Aplicar</button>
+      <a class="btn-ghost" href="{% url 'noticias:index' %}">Limpar</a>
+    </div>
+  </aside>
+
+  <!-- Backdrop -->
+  <div class="drawer-backdrop" hidden></div>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% block scripts %}
+  <script>
+  (function(){
+    const btn = document.querySelector('.hamburger');
+    const drawer = document.getElementById('filters-drawer');
+    const closeBtn = drawer?.querySelector('.drawer-close');
+    const backdrop = document.querySelector('.drawer-backdrop');
+
+    function open() {
+      drawer.classList.add('is-open');
+      drawer.setAttribute('aria-hidden','false');
+      btn?.setAttribute('aria-expanded','true');
+      backdrop?.removeAttribute('hidden');
+      document.body.classList.add('no-scroll');
+    }
+    function close() {
+      drawer.classList.remove('is-open');
+      drawer.setAttribute('aria-hidden','true');
+      btn?.setAttribute('aria-expanded','false');
+      backdrop?.setAttribute('hidden','');
+      document.body.classList.remove('no-scroll');
+    }
+
+    btn?.addEventListener('click', open);
+    closeBtn?.addEventListener('click', close);
+    backdrop?.addEventListener('click', close);
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') close(); });
+  })();
+  </script>
+  {% endblock %}
+</body>
+</html>
