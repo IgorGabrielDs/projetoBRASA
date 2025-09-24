@@ -4,8 +4,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="csrf-token" content="{{ csrf_token }}">
   <title>{% block title %}BRASA{% endblock %}</title>
+
+  {# Se preferir, troque por um CSS global (ex.: main.css). #}
   <link rel="stylesheet" href="{% static 'noticias/css/detalhe.css' %}">
+
   {% block head %}{% endblock %}
 </head>
 <body>
@@ -32,12 +36,17 @@
         <a href="#" class="nav-link">Brasil</a>
         <a href="#" class="nav-link">Mundo</a>
         <a href="#" class="nav-link">Tecnologia</a>
+
+        {# Link Salvos — visível só para usuários logados #}
+        {% if user.is_authenticated %}
+          <a href="{% url 'noticias:salvos' %}" class="nav-link">Salvos</a>
+        {% endif %}
       </nav>
 
       <!-- Busca -->
-      <form class="search" role="search" aria-label="Buscar">
-        <input type="search" placeholder="Buscar no BRASA" aria-label="Buscar">
-        <button type="button" aria-label="Pesquisar">
+      <form class="search" role="search" aria-label="Buscar" action="{% url 'noticias:index' %}" method="get">
+        <input type="search" name="q" placeholder="Buscar no BRASA" aria-label="Buscar" value="{{ request.GET.q }}">
+        <button type="submit" aria-label="Pesquisar">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M21 20.3l-4.7-4.7a8 8 0 10-1.4 1.4L19.6 22 21 20.6zM10 16a6 6 0 110-12 6 6 0 010 12z"/>
           </svg>
@@ -51,6 +60,7 @@
           <a class="btn-ghost" href="{% url 'logout' %}">Sair</a>
         {% else %}
           <a class="btn" href="{% url 'login' %}">Entrar</a>
+          {# Garanta que esta rota exista; se não tiver signup, pode remover. #}
           <a class="btn-ghost" href="{% url 'noticias:signup' %}">Criar conta</a>
         {% endif %}
       </div>
