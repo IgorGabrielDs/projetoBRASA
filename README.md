@@ -17,7 +17,7 @@
 ---
 
 <h2 id="primeira-entrega">🚧 Primeira Entrega</h2>
-Nesta primeira fase de prototipação, focamos no **desenvolvimento do layout** e das **funcionalidades básicas do sistema**, aplicando a prática **SCRUM** para organizar o trabalho.  
+Nesta primeira fase de prototipação, focamos no  **desenvolvimento do layout**  e das  **funcionalidades básicas do sistema** , aplicando a prática  **SCRUM**  para organizar o trabalho.  
 
 As histórias de usuário foram estruturadas e gerenciadas no **[ ![](https://img.shields.io/badge/Jira-0052CC?style=flat&logo=jira&logoColor=white)](https://www.atlassian.com/software/jira)**, detalhadas em um documento **[ ![](https://img.shields.io/badge/Docs-4285F4?style=flat&logo=google-docs&logoColor=white)](https://drive.google.com/file/d/1ouoEgFPZ02-8_kazVeIqEN_Ve31Tdzf6/view?usp=sharing)**, e representadas visualmente em um protótipo de baixa fidelidade no **[ ![](https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=figma&logoColor=white)](https://www.figma.com/board/lzG3Xxdd2BwITojMThqPFT/Hist%C3%B3rias-FDS-G5?node-id=0-1&t=zvdaCqNiUp5PQqNk-1)**.  
 
