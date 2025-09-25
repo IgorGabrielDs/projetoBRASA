@@ -55,7 +55,7 @@ Além disso, gravamos um **screencast** apresentando o protótipo, disponível n
 
 ### Relatório Programação em Par
 
-[![Acesse o Relatório](https://img.shields.io/badge/Relatório-Google%20Docs-blue?logo=googledocs)](https://docs.google.com/document/d/1EDIJgTI7IFePZl4jITE_3xs-vbeE1V5ftO9IN8vlnv4/edit?usp=sharing)
+Acesse aqui o nosso [Relatório](https://docs.google.com/document/d/1EDIJgTI7IFePZl4jITE_3xs-vbeE1V5ftO9IN8vlnv4/edit?usp=sharing)
 
 ### Jira [Board]:
 
