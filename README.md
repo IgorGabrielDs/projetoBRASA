@@ -50,7 +50,7 @@ Além disso, gravamos um **screencast** apresentando o protótipo, disponível n
 
 ### Issue/Bug Tracker
 
-<img width="1761" height="562" alt="image" src="https://github.com/user-attachments/assets/cef0e9b6-5dd0-4e7d-b2f2-f09c751b78ee" />
+<img width="1753" height="586" alt="image" src="https://github.com/user-attachments/assets/5caffc5a-8ce0-4cbd-9c17-f9ef7c166dcf" />
 
 ### Deploy com Screencast
 
