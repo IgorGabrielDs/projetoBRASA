@@ -59,6 +59,8 @@ Acesse aqui o nosso [Relatório](https://docs.google.com/document/d/1EDIJgTI7IFe
 
 ### Jira [Board]:
 
+<img width="1685" height="589" alt="image" src="https://github.com/user-attachments/assets/146177bb-021e-4818-b279-d1397d1f2b15" />
+
 <h2 id="participantes">👨‍👩‍👧‍👦 Participantes</h2>
 
 | <img src="https://avatars.githubusercontent.com/u/107767224?v=4" width="120" height="120"> | <img src="https://avatars.githubusercontent.com/u/200817151?v=4" width="120" height="120"> | <img src="https://avatars.githubusercontent.com/u/211526755?v=4" width="120" height="120"> | <img src="https://avatars.githubusercontent.com/u/211526947?v=4" width="120" height="120"> |
