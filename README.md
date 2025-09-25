@@ -49,9 +49,13 @@ Além disso, gravamos um **screencast** apresentando o protótipo, disponível n
 
 ### Issue/Bug Tracker
 
+<img width="1761" height="562" alt="image" src="https://github.com/user-attachments/assets/cef0e9b6-5dd0-4e7d-b2f2-f09c751b78ee" />
+
 ### Deploy com Screencast
 
 ### Relatório Programação em Par
+
+Acesse aqui o nosso relatório[https://docs.google.com/document/d/1EDIJgTI7IFePZl4jITE_3xs-vbeE1V5ftO9IN8vlnv4/edit?usp=sharing]
 
 ### Jira [Board]:
 
