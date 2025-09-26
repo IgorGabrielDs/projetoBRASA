@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Últimas notícias • BRASA{% endblock %}
+
+{% block content %}
+  <h1 class="page-title">Últimas notícias</h1>
+  {% if top3 %}
+    <section class="top3">
+      <h2 class="top3-title">Top 3 da semana</h2>
+      <ol class="top3-list">
+        {% for n in top3 %}
+          <li class="top3-item">
+            <a class="headline" href="{% url 'noticias:noticia_detalhe' n.pk %}">{{ n.titulo }}</a>
+            <span class="muted small">Score: {{ n.score_semanal|default:0 }} · ▲ {{ n.ups_semana|default:0 }} ▼ {{ n.downs_semana|default:0 }}</span>
+          </li>
+        {% endfor %}
+      </ol>
+    </section>
+  {% endif %}
+
+  <ul class="news-list">
+    {% for n in noticias %}
+      <li class="news-item">
+        {% if n.imagem %}
+          <a class="thumb" href="{% url 'noticias:noticia_detalhe' n.pk %}">
+            <img src="{{ n.imagem.url }}" alt="{{ n.titulo }}">
+          </a>
+        {% endif %}
+        <div class="meta">
+          <a class="headline" href="{% url 'noticias:noticia_detalhe' n.pk %}">{{ n.titulo }}</a>
+          <div class="muted small">{{ n.criado_em|date:"d/m/Y H:i" }}</div>
+          {% include "noticias/partials/_salvar_btn.html" with noticia=n %}
+        </div>
+      </li>
+    {% empty %}
+      <li>Nenhuma notícia ainda.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{% static 'noticias/js/salvar.js' %}"></script>
+{% endblock %}
