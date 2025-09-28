@@ -54,6 +54,8 @@ Além disso, gravamos um **screencast** apresentando o protótipo, disponível n
 
 ### Deploy com Screencast
 
+Para acessar nosso site e experimentar além do nosso Screencast [clique aqui](https://projetobrasa.azurewebsites.net)
+
 ### Relatório Programação em Par
 
 Acesse aqui o nosso [Relatório](https://docs.google.com/document/d/1EDIJgTI7IFePZl4jITE_3xs-vbeE1V5ftO9IN8vlnv4/edit?usp=sharing)
