@@ -54,7 +54,7 @@ Além disso, gravamos um **screencast** apresentando o protótipo, disponível n
 
 ### Deploy com Screencast
 
-https://github.com/user-attachments/assets/61c50363-9bca-4ef2-a083-15d35bcd9dd0
+https://youtu.be/fesDuB04mYk
 
 Para acessar nosso site e experimentar além do nosso Screencast [clique aqui](https://projetobrasa.azurewebsites.net)
 
