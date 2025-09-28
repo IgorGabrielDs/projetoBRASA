@@ -54,6 +54,7 @@ Além disso, gravamos um **screencast** apresentando o protótipo, disponível n
 
 ### Deploy com Screencast
 
+Aqui está nosso Screencast disponível também no [Youtube](https://youtu.be/fesDuB04mYk)
 
 https://github.com/user-attachments/assets/6984ef0b-49ed-4e25-a5ca-b3eed48bce9e
 
