@@ -87,3 +87,4 @@ class Salvo(models.Model):
 
     def __str__(self):
         return f"{self.usuario} salvou {self.noticia}"
+
