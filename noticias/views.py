@@ -9,6 +9,8 @@ from django.http import JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Noticia, Voto, Assunto, Salvo
+from django.conf import settings
+import openai
     
 
 def index(request):
@@ -179,3 +181,46 @@ def toggle_salvo(request, pk):
 
     messages.success(request, msg)
     return redirect("noticias:detalhe", pk=pk)
+
+def resumir_noticia(request, pk):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Método não permitido.'}, status=405)
+
+    noticia = get_object_or_404(Noticia, pk=pk)
+
+    if noticia.resumo:
+        return JsonResponse({'resumo': noticia.resumo})
+
+    try:
+        client = openai.OpenAI(api_key=settings.OPENAI_API_KEY)
+
+        response = client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {
+                    "role": "system",
+                    "content": "Você é um assistente de jornalismo que cria resumos concisos e informativos."
+                },
+                {
+                    "role": "user",
+                    "content": f"Resuma a seguinte notícia em um único parágrafo em português: {noticia.conteudo}"
+                }
+            ],
+            temperature=0.7,
+            max_tokens=150
+        )
+        
+        message_content = response.choices[0].message.content
+
+        if message_content:
+            resumo_gerado = message_content.strip()
+
+            noticia.resumo = resumo_gerado
+            noticia.save()
+
+            return JsonResponse({'resumo': resumo_gerado})
+        else:
+            return JsonResponse({'error': 'A IA não conseguiu gerar um resumo para esta notícia.'}, status=500)
+            
+    except Exception as e:
+        return JsonResponse({'error': f'Erro ao conectar com a IA: {str(e)}'}, status=500)

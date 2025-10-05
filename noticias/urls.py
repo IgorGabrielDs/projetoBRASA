@@ -10,4 +10,5 @@ urlpatterns = [
     path('accounts/signup/', views.signup, name='signup'),  
     path("salvos/", views.minhas_salvas, name="salvos"),
     path("noticia/<int:pk>/salvar/", views.toggle_salvo, name="toggle_salvo"),
+    path('noticia/<int:pk>/resumir/', views.resumir_noticia, name='resumir_noticia'),
 ]
