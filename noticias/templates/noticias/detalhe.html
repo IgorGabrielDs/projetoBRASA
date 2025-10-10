@@ -77,7 +77,40 @@
           🔗 Compartilhar
         </button>
       </div>
+
+      <!-- RESUMO: botão + status (NOVO) -->
+      <div class="resumo-container" id="resumo-action"
+           data-url="{% url 'noticias:resumir_noticia' noticia.pk %}"
+           data-login-url="{% url 'login' %}">
+        <button type="button" class="btn-resumir" id="btn-resumir"
+                aria-controls="resumo-panel" aria-expanded="false">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 6h18M3 12h12M3 18h6" fill="none" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span>Resumir notícia</span>
+        </button>
+        <span id="resumo-status" class="resumo-status" role="status" aria-live="polite"></span>
+      </div>
+      <!-- /RESUMO (NOVO) -->
     </section>
+
+    <!-- Painel de resumo (NOVO) -->
+    <section id="resumo-panel" class="resumo-panel is-hidden"
+             aria-hidden="true" aria-label="Resumo gerado da notícia">
+      <header class="resumo-header">
+        <strong>Resumo gerado</strong>
+        <div class="resumo-header-actions">
+          <button type="button" id="btn-copiar" class="btn-ghost">Copiar</button>
+          <button type="button" id="btn-fechar" class="btn-ghost">Fechar</button>
+        </div>
+      </header>
+      <div id="resumo-text" class="resumo-text"></div>
+      <footer class="resumo-footer">
+        <small id="resumo-meta" class="resumo-meta"></small>
+      </footer>
+    </section>
+    <!-- /Painel de resumo (NOVO) -->
+
   </article>
 
   <div class="share-modal" id="share-modal" hidden>
@@ -105,4 +138,5 @@
   <script src="{% static 'noticias/js/votar.js' %}"></script>
   <script src="{% static 'noticias/js/salvar.js' %}"></script>
   <script src="{% static 'noticias/js/share.js' %}"></script>
+  <script src="{% static 'noticias/js/resumo.js' %}"></script>
 {% endblock %}
