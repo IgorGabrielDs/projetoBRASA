@@ -12,3 +12,5 @@ venv/
 
 # Configurações do VS Code
 .vscode/
+# Django static files
+staticfiles/
