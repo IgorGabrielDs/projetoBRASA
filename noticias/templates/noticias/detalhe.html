@@ -24,6 +24,7 @@
     </section>
 
     <section class="article-actions" style="margin-top:24px; display: flex; align-items: center; gap: 16px;">
+      <!-- VOTAÇÃO -->
       <div class="article-vote" aria-labelledby="vote-heading">
         <h2 id="vote-heading" class="sr-only">Avaliação</h2>
 
@@ -33,56 +34,68 @@
              data-voto="{{ voto_usuario|default:0 }}"
              data-login-url="{% url 'login' %}">
 
+          <!-- UPVOTE -->
           <button type="button"
+                  id="vote-up"
+                  data-testid="vote-up"
                   class="vote-btn up {% if voto_usuario == 1 %}is-active{% endif %}"
                   aria-label="Votar positivo"
                   data-valor="1">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <polygon points="12 4 4 12 9 12 9 20 15 20 15 12 20 12" />
             </svg>
-            <span class="vote-count" data-count="up">{{ up }}</span>
+            <span class="vote-count" data-count="up">{{ up|default:0 }}</span>
           </button>
 
+          <!-- DOWNVOTE -->
           <button type="button"
+                  id="vote-down"
+                  data-testid="vote-down"
                   class="vote-btn down {% if voto_usuario == -1 %}is-active{% endif %}"
                   aria-label="Votar negativo"
                   data-valor="-1">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <polygon points="12 20 20 12 15 12 15 4 9 4 9 12 4 12" />
             </svg>
-            <span class="vote-count" data-count="down">{{ down }}</span>
+            <span class="vote-count" data-count="down">{{ down|default:0 }}</span>
           </button>
         </div>
 
         <span class="sr-only" aria-live="polite" id="vote-feedback"></span>
 
+        <!-- Fallback sem JS -->
         <noscript>
           <form action="{% url 'noticias:votar' noticia.pk %}" method="post" style="display:inline">
             {% csrf_token %}
-            <button class="vote-btn up" name="valor" value="1">▲ {{ up }}</button>
+            <input type="hidden" name="valor" value="1">
+            <button class="vote-btn up">▲ {{ up|default:0 }}</button>
           </form>
           <form action="{% url 'noticias:votar' noticia.pk %}" method="post" style="display:inline">
             {% csrf_token %}
-            <button class="vote-btn down" name="valor" value="-1">▼ {{ down }}</button>
+            <input type="hidden" name="valor" value="-1">
+            <button class="vote-btn down">▼ {{ down|default:0 }}</button>
           </form>
         </noscript>
       </div>
 
+      <!-- SALVAR -->
       <div class="save-container">
         {% include "noticias/partials/_salvar_btn.html" with noticia=noticia %}
       </div>
 
+      <!-- COMPARTILHAR -->
       <div class="share-container">
         <button type="button" class="share-btn" id="open-share">
           🔗 Compartilhar
         </button>
       </div>
 
-      <!-- RESUMO: botão + status (NOVO) -->
+      <!-- RESUMO: botão + status -->
       <div class="resumo-container" id="resumo-action"
            data-url="{% url 'noticias:resumir_noticia' noticia.pk %}"
            data-login-url="{% url 'login' %}">
         <button type="button" class="btn-resumir" id="btn-resumir"
+                data-testid="btn-resumir"
                 aria-controls="resumo-panel" aria-expanded="false">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M3 6h18M3 12h12M3 18h6" fill="none" stroke="currentColor" stroke-width="2"/>
@@ -91,10 +104,10 @@
         </button>
         <span id="resumo-status" class="resumo-status" role="status" aria-live="polite"></span>
       </div>
-      <!-- /RESUMO (NOVO) -->
+      <!-- /RESUMO -->
     </section>
 
-    <!-- Painel de resumo (NOVO) -->
+    <!-- Painel de resumo -->
     <section id="resumo-panel" class="resumo-panel is-hidden"
              aria-hidden="true" aria-label="Resumo gerado da notícia">
       <header class="resumo-header">
@@ -109,10 +122,11 @@
         <small id="resumo-meta" class="resumo-meta"></small>
       </footer>
     </section>
-    <!-- /Painel de resumo (NOVO) -->
+    <!-- /Painel de resumo -->
 
   </article>
 
+  <!-- Modal de compartilhar -->
   <div class="share-modal" id="share-modal" hidden>
     <div class="share-modal-backdrop" id="close-share"></div>
     <div class="share-modal-content">
