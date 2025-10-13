@@ -1,3 +1,14 @@
-.env
+# Arquivos e pastas compilados do Python
 __pycache__/
+*.py[cod]
+
+# Banco de dados SQLite (Django)
 db.sqlite3
+db.sqlite3-journal
+
+# Variáveis de ambiente
+venv/
+.env
+
+# Configurações do VS Code
+.vscode/
