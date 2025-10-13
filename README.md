@@ -11,6 +11,7 @@
 - [💻 Softwares e Apps](#softwares-e-apps)  
 - [🚧 Primeira Entrega](#primeira-entrega)
 - [🚧 Segunda Entrega](#segunda-entrega)
+- [🚧 Terceira Entrega](#terceiraa-entrega)
 - [👨‍👩‍👧‍👦 Participantes](#participantes)  
 - [📜 Licença](#licenca)  
 
@@ -68,6 +69,16 @@ Acesse aqui o nosso [Relatório](https://docs.google.com/document/d/1EDIJgTI7IFe
 ### Jira [Board]:
 
 <img width="1685" height="589" alt="image" src="https://github.com/user-attachments/assets/146177bb-021e-4818-b279-d1397d1f2b15" />
+
+<h2 id="terceira-entrega">🚧 Terceira Entrega</h2>
+
+### Jira [Backlog]:
+
+<img width="1761" height="568" alt="image" src="https://github.com/user-attachments/assets/0d8951b5-f9c4-4b0a-bc1a-d7092d5bcad1" />
+
+### Jira [Board]:
+
+<img width="1672" height="686" alt="image" src="https://github.com/user-attachments/assets/70f3aaa9-b426-40ae-bb32-0be45705dc06" />
 
 <h2 id="participantes">👨‍👩‍👧‍👦 Participantes</h2>
 
