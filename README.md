@@ -11,7 +11,7 @@
 - [💻 Softwares e Apps](#softwares-e-apps)  
 - [🚧 Primeira Entrega](#primeira-entrega)
 - [🚧 Segunda Entrega](#segunda-entrega)
-- [🚧 Terceira Entrega](#terceiraa-entrega)
+- [🚧 Terceira Entrega](#terceira-entrega)
 - [👨‍👩‍👧‍👦 Participantes](#participantes)  
 - [📜 Licença](#licenca)  
 
