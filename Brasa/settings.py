@@ -127,3 +127,4 @@ CACHES = {
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+os.makedirs(STATIC_ROOT, exist_ok=True)
