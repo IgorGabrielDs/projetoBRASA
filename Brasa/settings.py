@@ -6,11 +6,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv(os.path.join(BASE_DIR, ".env"))
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY', 'dev-test-secret-key-change-me')
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'projetobrasa.azurewebsites.net']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver', 'projetobrasa.azurewebsites.net']
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
