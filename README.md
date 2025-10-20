@@ -72,6 +72,10 @@ Acesse aqui o nosso [Relatório](https://docs.google.com/document/d/1EDIJgTI7IFe
 
 <h2 id="terceira-entrega">🚧 Terceira Entrega</h2>
 
+### Screencast [Testes automatizados]:
+
+https://github.com/user-attachments/assets/9be54ac9-ebff-4348-979b-f6a932062cd2
+
 ### Jira [Backlog]:
 
 <img width="1761" height="568" alt="image" src="https://github.com/user-attachments/assets/0d8951b5-f9c4-4b0a-bc1a-d7092d5bcad1" />
