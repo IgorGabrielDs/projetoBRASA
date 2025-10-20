@@ -3,7 +3,7 @@ name: Deploy Django app to Azure Web App - projetoBrasa
 on:
   push:
     branches:
-      - prod   # Altere para 'main' se quiser rodar ao dar push na main
+      - prod 
   workflow_dispatch:
 
 jobs:
@@ -13,35 +13,35 @@ jobs:
       contents: read
 
     steps:
-      # 1️⃣ Baixa o código do repositório
+      # Baixa o código do repositório
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # 2️⃣ Configura o Python
+      # Configura o Python
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      # 3️⃣ Instala dependências
+      # Instala dependências
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # 4️⃣ Coleta arquivos estáticos
+      # Coleta arquivos estáticos
       - name: Collect static files
         run: python manage.py collectstatic --noinput
 
-      # 5️⃣ Aplica migrações (opcional)
+      # Aplica migrações (opcional)
       - name: Run migrations
         run: python manage.py migrate
 
-      # 6️⃣ Cria o pacote para envio ao Azure
+      # Cria o pacote para envio ao Azure
       - name: Zip artifact for deployment
         run: zip -r release.zip . -x "venv/*" "__pycache__/*"
 
-      # 7️⃣ Envia o pacote para o próximo job
+      # Envia o pacote para o próximo job
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
@@ -59,17 +59,17 @@ jobs:
       contents: read
 
     steps:
-      # 1️⃣ Baixa o pacote gerado no job anterior
+      # Baixa o pacote gerado no job anterior
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: django-app
 
-      # 2️⃣ Descompacta o pacote
+      # Descompacta o pacote
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      # 3️⃣ Faz login no Azure com os segredos configurados
+      # Faz login no Azure com os segredos configurados
       - name: Azure Login
         uses: azure/login@v2
         with:
@@ -81,7 +81,7 @@ jobs:
               "tenantId": "${{ secrets.AZURE_TENANT_ID }}"
             }
 
-      # 4️⃣ Faz o deploy no Azure Web App
+      # Faz o deploy no Azure Web App
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
