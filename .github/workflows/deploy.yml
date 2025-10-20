@@ -21,7 +21,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'  # Recomendo 3.11 (estável e compatível com Django)
+          python-version: '3.10'
 
       # 3️⃣ Instala dependências
       - name: Install dependencies
@@ -29,11 +29,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # 4️⃣ Coleta arquivos estáticos (necessário para o Django no Azure)
+      # 4️⃣ Coleta arquivos estáticos
       - name: Collect static files
         run: python manage.py collectstatic --noinput
 
-      # 5️⃣ Aplica migrações no banco de dados (opcional)
+      # 5️⃣ Aplica migrações (opcional)
       - name: Run migrations
         run: python manage.py migrate
 
@@ -69,24 +69,21 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      # 3️⃣ Faz login na conta Azure (usando os segredos configurados no GitHub)
-      - name: Login to Azure
-  uses: azure/login@v2
-  with:
-    creds: |
-      {
-        "clientId": "${{ secrets.AZURE_CLIENT_ID }}",
-        "clientSecret": "${{ secrets.AZURE_CLIENT_SECRET }}",
-        "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}",
-        "tenantId": "${{ secrets.AZURE_TENANT_ID }}"
-      }
-
+      # 3️⃣ Faz login no Azure com os segredos configurados
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: |
+            {
+              "clientId": "${{ secrets.AZURE_CLIENT_ID }}",
+              "clientSecret": "${{ secrets.AZURE_CLIENT_SECRET }}",
+              "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}",
+              "tenantId": "${{ secrets.AZURE_TENANT_ID }}"
+            }
 
       # 4️⃣ Faz o deploy no Azure Web App
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'projetoBrasa'   # ⚙️ Nome do seu App Service no Azure
-          slot-name: 'Production'
-
+          app-name: 'projetoBrasa'
