@@ -71,11 +71,16 @@ jobs:
 
       # 3️⃣ Faz login na conta Azure (usando os segredos configurados no GitHub)
       - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_PROJETOBRASA }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_PROJETOBRASA }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_PROJETOBRASA }}
+  uses: azure/login@v2
+  with:
+    creds: |
+      {
+        "clientId": "${{ secrets.AZURE_CLIENT_ID }}",
+        "clientSecret": "${{ secrets.AZURE_CLIENT_SECRET }}",
+        "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}",
+        "tenantId": "${{ secrets.AZURE_TENANT_ID }}"
+      }
+
 
       # 4️⃣ Faz o deploy no Azure Web App
       - name: Deploy to Azure Web App
