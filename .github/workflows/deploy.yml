@@ -1,4 +1,4 @@
-name: Deploy Django app to Azure Web App - projetoBrasa
+name: CI/CD Django app to Azure Web App - projetoBrasa
 
 on:
   push:
@@ -7,69 +7,70 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  # --- JOB 1: TESTAR (CI) ---
+  test:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
     steps:
-      # Baixa o código do repositório
       - name: Checkout code
         uses: actions/checkout@v4
-
-      # Configura o Python
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-
-      # Instala dependências
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+      - name: Run tests
+        env:
+          SECRET_KEY: "dummy-key-para-testes"
+          GEMINI_API_KEY: "dummy-gemini-key-para-testes"
+        run: python manage.py test
 
-      # Coleta arquivos estáticos
-      - name: Collect static files
+  # --- JOB 2: CONSTRUIR (BUILD) ---
+  build:
+    needs: test 
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run collectstatic
         run: python manage.py collectstatic --noinput
-
-      # Aplica migrações (opcional)
-      - name: Run migrations
-        run: python manage.py migrate
-
-      # Cria o pacote para envio ao Azure
       - name: Zip artifact for deployment
-        run: zip -r release.zip . -x "venv/*" "__pycache__/*"
-
-      # Envia o pacote para o próximo job
+        run: zip -r release.zip . -x "venv/*" "__pycache__/*" ".git*" "db.sqlite3*"
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: django-app
           path: release.zip
 
+  # --- JOB 3: IMPLANTAR (DEPLOY) ---
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: build 
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write
       contents: read
-
     steps:
-      # Baixa o pacote gerado no job anterior
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
           name: django-app
-
-      # Descompacta o pacote
       - name: Unzip artifact for deployment
         run: unzip release.zip
-
-      # Faz login no Azure com os segredos configurados
       - name: Azure Login
         uses: azure/login@v2
         with:
@@ -80,8 +81,6 @@ jobs:
               "subscriptionId": "${{ secrets.AZURE_SUBSCRIPTION_ID }}",
               "tenantId": "${{ secrets.AZURE_TENANT_ID }}"
             }
-
-      # Faz o deploy no Azure Web App
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
