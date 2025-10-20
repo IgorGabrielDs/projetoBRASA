@@ -14,6 +14,8 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'projetobrasa.azurewebsites.net']
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
+# Application definition
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
