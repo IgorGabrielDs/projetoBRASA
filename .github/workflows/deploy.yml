@@ -84,3 +84,5 @@ jobs:
         with:
           app-name: 'projetoBrasa'   # ⚙️ Nome do seu App Service no Azure
           slot-name: 'Production'
+
+#Forçando deploy
