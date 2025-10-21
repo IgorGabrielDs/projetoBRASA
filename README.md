@@ -74,15 +74,19 @@ Acesse aqui o nosso [Relatório](https://docs.google.com/document/d/1EDIJgTI7IFe
 
 ### Screencast [Testes automatizados]:
 
+Assista o vídeo [aqui](https://youtu.be/u3GwHLkPPOI)
+
 https://github.com/user-attachments/assets/9be54ac9-ebff-4348-979b-f6a932062cd2
 
 ### Screencast [CI/CD]:
+
+Acesse também no nosso canal do [youtube](https://youtu.be/Ge6QwZa_O_Y)
 
 https://github.com/user-attachments/assets/8e723101-3047-4718-8c4c-5149594a92ae
 
 ### Screencast [Funcionalidades]
 
-
+Assista o vídeo [aqui](https://youtu.be/qHobxuF3r9M)
 
 ### Jira [Backlog]:
 
