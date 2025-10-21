@@ -80,6 +80,10 @@ https://github.com/user-attachments/assets/9be54ac9-ebff-4348-979b-f6a932062cd2
 
 https://github.com/user-attachments/assets/8e723101-3047-4718-8c4c-5149594a92ae
 
+### Screencast [Funcionalidades]
+
+
+
 ### Jira [Backlog]:
 
 <img width="1761" height="568" alt="image" src="https://github.com/user-attachments/assets/0d8951b5-f9c4-4b0a-bc1a-d7092d5bcad1" />
