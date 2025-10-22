@@ -76,8 +76,6 @@ Acesse aqui o nosso [Relatório](https://docs.google.com/document/d/1EDIJgTI7IFe
 
 Assista o vídeo [aqui](https://youtu.be/u3GwHLkPPOI)
 
-https://github.com/user-attachments/assets/9be54ac9-ebff-4348-979b-f6a932062cd2
-
 ### Screencast [CI/CD]:
 
 Acesse também no nosso canal do [youtube](https://youtu.be/aTHcLaANkTI)
