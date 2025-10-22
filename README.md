@@ -82,7 +82,7 @@ Acesse também no nosso canal do [youtube](https://youtu.be/aTHcLaANkTI)
 
 ### Screencast [Funcionalidades]
 
-Assista o vídeo [aqui]()
+Assista o vídeo [aqui](https://youtu.be/0iSIh5SNHi4)
 
 ### Jira [Backlog]:
 
