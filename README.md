@@ -81,7 +81,7 @@ Acesse [aqui](https://docs.google.com/document/d/1ZDODOwvhNofBw9hyBM5MrxyhSyyR3v
 
 ### Screencast [Testes automatizados]:
 
-Assista o vídeo [aqui](https://youtu.be/u3GwHLkPPOI)
+Assista o vídeo [aqui](https://youtu.be/cwic5YciXnk)
 
 ### Screencast [CI/CD]:
 
