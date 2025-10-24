@@ -59,7 +59,6 @@ Aqui está nosso Screencast disponível também no [Youtube](https://youtu.be/fe
 
 https://github.com/user-attachments/assets/6984ef0b-49ed-4e25-a5ca-b3eed48bce9e
 
-
 Para acessar nosso site e experimentar além do nosso Screencast [clique aqui](https://projetobrasa.azurewebsites.net)
 
 ### Relatório Programação em Par
@@ -71,6 +70,14 @@ Acesse aqui o nosso [Relatório](https://docs.google.com/document/d/1EDIJgTI7IFe
 <img width="1685" height="589" alt="image" src="https://github.com/user-attachments/assets/146177bb-021e-4818-b279-d1397d1f2b15" />
 
 <h2 id="terceira-entrega">🚧 Terceira Entrega</h2>
+
+### Issue/Bug Tracker
+
+<img width="1726" height="855" alt="image" src="https://github.com/user-attachments/assets/00c1a4a6-b4f2-4147-930f-0eb6ead64521" />
+
+### Relatório Programação em Par
+
+Acesse [aqui](https://docs.google.com/document/d/1ZDODOwvhNofBw9hyBM5MrxyhSyyR3vqJIBW_SehDaXQ/edit?usp=sharing)
 
 ### Screencast [Testes automatizados]:
 
