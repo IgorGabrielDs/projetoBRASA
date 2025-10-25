@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 {% load static %}
 <!doctype html>
 <html lang="pt-br">
@@ -7,8 +9,8 @@
   <link rel="stylesheet" href="{% static 'noticias/css/detalhe.css' %}">
 </head>
 <body>
-  <div class="box article" style="max-width:420px; margin:40px auto;">
-    <h1 class="article-title" style="font-size:28px; margin-bottom:12px;">Entrar</h1>
+  <div class="box article" style="max-width:420px;margin:40px auto;">
+    <h1 class="article-title" style="font-size:28px;margin-bottom:12px;">Entrar</h1>
 
     {% if form.errors %}
       <p class="muted">Usuário ou senha inválidos. Tente novamente.</p>
@@ -31,3 +33,4 @@
   </div>
 </body>
 </html>
+{%endblock content %}
