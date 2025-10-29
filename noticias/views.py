@@ -21,59 +21,62 @@ import google.generativeai as genai
 # RECOMENDAÇÃO — helper simples por afinidade
 # ==============================================
 def _recomendadas_para_usuario(user, limite=10):
-    """
-    Retorna um QuerySet de notícias recomendadas por afinidade de assuntos
-    com base no histórico do usuário (votos +1 e salvos).
-    Critérios de ordenação: match de assuntos, score (up - down) e recência.
-    """
     if not user.is_authenticated:
         return Noticia.objects.none()
 
-    # Assuntos de notícias que o usuário votou positivamente
-    assuntos_like = Voto.objects.filter(
-        usuario=user,
-        valor=1
-    ).values_list("noticia__assuntos", flat=True)
-
-    # Assuntos de notícias que o usuário salvou
-    assuntos_salvos = Salvo.objects.filter(
-        usuario=user
-    ).values_list("noticia__assuntos", flat=True)
-
-    assuntos_ids = list(assuntos_like) + list(assuntos_salvos)
-    assuntos_ids = [a for a in assuntos_ids if a]
-
-    if not assuntos_ids:
-        return Noticia.objects.none()
-
-    # Evitar recomendar itens já vistos (votados ou salvos)
+    # vistos (votados ou salvos) para evitar recomendar o mesmo
     vistos_ids = Noticia.objects.filter(
         Q(votos__usuario=user) | Q(salvo__usuario=user)
     ).values_list("id", flat=True).distinct()
 
-    qs = (
-        Noticia.objects.exclude(id__in=vistos_ids)
-        .filter(assuntos__in=assuntos_ids)
-        .annotate(
-            match_count=Count(
-                "assuntos",
-                filter=Q(assuntos__in=assuntos_ids),
-                distinct=True
+    # sinais (assuntos curtidos/salvos)
+    assuntos_like = Voto.objects.filter(usuario=user, valor=1)\
+                                .values_list("noticia__assuntos", flat=True)
+    assuntos_salvos = Salvo.objects.filter(usuario=user)\
+                                   .values_list("noticia__assuntos", flat=True)
+
+    assuntos_ids = [a for a in list(assuntos_like) + list(assuntos_salvos) if a]
+
+    # (A) afinidade por assuntos
+    if assuntos_ids:
+        qs = (
+            Noticia.objects.exclude(id__in=vistos_ids)
+            .filter(assuntos__in=assuntos_ids)
+            .annotate(
+                match_count=Count("assuntos", filter=Q(assuntos__in=assuntos_ids), distinct=True),
+                score=Sum("votos__valor"),
             )
+            .order_by("-match_count", "-score", "-criado_em")
+            .distinct()[:limite]
         )
+        if qs.exists():
+            return qs.annotate(
+                is_saved=Exists(Salvo.objects.filter(usuario=user, noticia=OuterRef("pk")))
+            )
+
+    # (B) fallback: populares recentes
+    semana = timezone.now() - timedelta(days=7)
+    qs_pop = (
+        Noticia.objects.exclude(id__in=vistos_ids)
+        .filter(criado_em__gte=semana)
         .annotate(score=Sum("votos__valor"))
-        .order_by("-match_count", "-score", "-criado_em")
+        .order_by("-score", "-criado_em")
         .distinct()[:limite]
     )
-
-    # Anotar se já está salvo, para manter consistência visual
-    qs = qs.annotate(
-        is_saved=Exists(
-            Salvo.objects.filter(usuario=user, noticia=OuterRef("pk"))
+    if qs_pop.exists():
+        return qs_pop.annotate(
+            is_saved=Exists(Salvo.objects.filter(usuario=user, noticia=OuterRef("pk")))
         )
-    )
-    return qs
 
+    # (C) fallback final: últimas
+    qs_recent = (
+        Noticia.objects.exclude(id__in=vistos_ids)
+        .order_by("-criado_em")
+        .distinct()[:limite]
+    )
+    return qs_recent.annotate(
+        is_saved=Exists(Salvo.objects.filter(usuario=user, noticia=OuterRef("pk")))
+    )
 
 # ==============================================
 # PÁGINA INICIAL / FEED
