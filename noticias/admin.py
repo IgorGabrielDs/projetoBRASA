@@ -4,10 +4,10 @@ from .models import Assunto, Noticia, Voto, Salvo
 
 @admin.register(Assunto)
 class AssuntoAdmin(admin.ModelAdmin):
-    list_display = ("id", "nome", "slug")          # removido 'criado_em'
+    list_display = ("id", "nome", "slug")
     search_fields = ("nome", "slug")
-    prepopulated_fields = {"slug": ("nome",)}      # slug automático
-    ordering = ("nome",)                           # não ordena por criado_em
+    prepopulated_fields = {"slug": ("nome",)}
+    ordering = ("nome",)
 
 
 @admin.register(Noticia)
@@ -15,10 +15,10 @@ class NoticiaAdmin(admin.ModelAdmin):
     list_display = ("id", "titulo", "criado_em")
     search_fields = ("titulo", "conteudo")
     list_filter = ("assuntos", "criado_em")
-    filter_horizontal = ("assuntos",)
     ordering = ("-criado_em",)
     fields = ("titulo", "conteudo", "imagem", "legenda", "assuntos", "criado_em")
     readonly_fields = ("criado_em",)
+    autocomplete_fields = ("assuntos",)
 
 
 @admin.register(Voto)
