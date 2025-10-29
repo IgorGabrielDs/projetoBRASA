@@ -24,14 +24,13 @@
       margin-top: 10px;
       border-radius: 8px;
       position: relative;
-      z-index: 9999;            /* acima de overlays */
+      z-index: 9999;
     }
     #filtros-panel * {
       visibility: visible !important;
       opacity: 1 !important;
       pointer-events: auto !important;
     }
-    /* Caso exista CSS de checkbox custom que usa display:none */
     #filtros-panel input[name="assunto"] {
       position: static !important;
       display: inline-block !important;
@@ -40,7 +39,6 @@
       opacity: 1 !important;
       pointer-events: auto !important;
     }
-    /* Área clicável maior via label */
     #filtros-panel label {
       cursor: pointer;
       user-select: none;
@@ -75,7 +73,6 @@
     function abrirFiltros() {
       const painel = document.getElementById("filtros-panel");
       painel.style.display = "block";
-      // dá tempo do layout “assentar” antes do clique do Selenium
       setTimeout(() => {
         painel.scrollIntoView({ behavior: "instant", block: "center" });
       }, 50);
@@ -86,12 +83,13 @@
       painel.style.display = "none";
     }
 
-    // Pré-seleciona checkboxes conforme querystring (?assunto=tecnologia)
     (function() {
       const params = new URLSearchParams(location.search);
       const selecionados = params.getAll('assunto');
       document.querySelectorAll("#form-filtros input[name='assunto']").forEach(cb => {
-        if (selecionados.includes(cb.value)) cb.checked = true;
+        if (selecionados.includes(cb.value)) {
+          cb.checked = true;
+        }
       });
     })();
   </script>
@@ -110,6 +108,52 @@
       </ol>
     </section>
   {% endif %}
+
+  {# ====== PARA VOCÊ (Recomendações) ====== #}
+  {% if user.is_authenticated %}
+    <section aria-label="Recomendadas para você" style="margin: 16px 0;">
+      <h2 class="page-subtitle">Para você</h2>
+
+      {% if recomendadas and recomendadas|length %}
+        <ul class="news-list" data-testid="para-voce">
+          {% for n in recomendadas %}
+            <li class="news-item">
+              {% if n.imagem %}
+                <a class="thumb" href="{% url 'noticias:noticia_detalhe' n.pk %}">
+                  <img src="{{ n.imagem.url }}" alt="{{ n.titulo }}">
+                </a>
+              {% endif %}
+
+              <div class="meta">
+                <a class="headline" href="{% url 'noticias:noticia_detalhe' n.pk %}">{{ n.titulo }}</a>
+                <div class="muted small">
+                  {{ n.criado_em|date:"d/m/Y H:i" }}
+                  {% if n.match_count %}
+                    • Afinidade: {{ n.match_count }} assunt{{ n.match_count|pluralize:"o,os" }}
+                  {% endif %}
+                </div>
+
+                <div class="assuntos">
+                  {% for s in n.assuntos.all %}
+                    <span class="chip-assunto" data-testid="chip-assunto">{{ s.nome }}</span>
+                  {% empty %}
+                    <span class="chip-assunto" data-testid="chip-assunto">geral</span>
+                  {% endfor %}
+                </div>
+
+                {% include "noticias/partials/_salvar_btn.html" with noticia=n %}
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="muted" data-testid="para-voce-empty">
+          Sem recomendações ainda. Salve ou curta algumas notícias para personalizarmos seu feed.
+        </p>
+      {% endif %}
+    </section>
+  {% endif %}
+  {# ====== /PARA VOCÊ ====== #}
 
   <ul class="news-list" style="margin-top: 12px;">
     {% for n in noticias %}
