@@ -7,6 +7,7 @@ from django.core.cache import cache
 from django.db.models import (
     Sum, Case, When, IntegerField, Exists, OuterRef, Value, BooleanField
 )
+from django.db.models import Sum, Case, When, IntegerField, Exists, OuterRef, Value, BooleanField, Q, Count
 from django.http import JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
@@ -14,6 +15,64 @@ from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
 from .models import Noticia, Voto, Assunto, Salvo
 import google.generativeai as genai
+
+
+# ==============================================
+# RECOMENDAÇÃO — helper simples por afinidade
+# ==============================================
+def _recomendadas_para_usuario(user, limite=10):
+    """
+    Retorna um QuerySet de notícias recomendadas por afinidade de assuntos
+    com base no histórico do usuário (votos +1 e salvos).
+    Critérios de ordenação: match de assuntos, score (up - down) e recência.
+    """
+    if not user.is_authenticated:
+        return Noticia.objects.none()
+
+    # Assuntos de notícias que o usuário votou positivamente
+    assuntos_like = Voto.objects.filter(
+        usuario=user,
+        valor=1
+    ).values_list("noticia__assuntos", flat=True)
+
+    # Assuntos de notícias que o usuário salvou
+    assuntos_salvos = Salvo.objects.filter(
+        usuario=user
+    ).values_list("noticia__assuntos", flat=True)
+
+    assuntos_ids = list(assuntos_like) + list(assuntos_salvos)
+    assuntos_ids = [a for a in assuntos_ids if a]
+
+    if not assuntos_ids:
+        return Noticia.objects.none()
+
+    # Evitar recomendar itens já vistos (votados ou salvos)
+    vistos_ids = Noticia.objects.filter(
+        Q(votos__usuario=user) | Q(salvo__usuario=user)
+    ).values_list("id", flat=True).distinct()
+
+    qs = (
+        Noticia.objects.exclude(id__in=vistos_ids)
+        .filter(assuntos__in=assuntos_ids)
+        .annotate(
+            match_count=Count(
+                "assuntos",
+                filter=Q(assuntos__in=assuntos_ids),
+                distinct=True
+            )
+        )
+        .annotate(score=Sum("votos__valor"))
+        .order_by("-match_count", "-score", "-criado_em")
+        .distinct()[:limite]
+    )
+
+    # Anotar se já está salvo, para manter consistência visual
+    qs = qs.annotate(
+        is_saved=Exists(
+            Salvo.objects.filter(usuario=user, noticia=OuterRef("pk"))
+        )
+    )
+    return qs
 
 
 # ==============================================
@@ -64,6 +123,9 @@ def index(request):
         top3 = list(top3_qs)
         cache.set("top3_semana", top3, 300)
 
+    # ===== NOVO: bloco de recomendadas por afinidade
+    recomendadas = _recomendadas_para_usuario(request.user, limite=8)
+
     ctx = {
         "noticias": noticias,
         "assuntos": assuntos,
@@ -71,6 +133,7 @@ def index(request):
         "periodo": periodo or "",
         "sort": sort,
         "top3": top3,
+        "recomendadas": recomendadas,  # <= NOVO
     }
     return render(request, "noticias/index.html", ctx)
 
@@ -231,10 +294,9 @@ def resumir_noticia(request, pk):
 
     resumo_final = None
 
-    # Tenta gerar via Gemini se houver chave
     if api_key:
         try:
-            import google.generativeai as genai  # import local evita crash se lib não estiver instalada nos testes
+            import google.generativeai as genai
             genai.configure(api_key=api_key)
             model = genai.GenerativeModel("gemini-flash-latest")
 
@@ -251,14 +313,11 @@ def resumir_noticia(request, pk):
             if resumo and len(resumo) > 30:
                 resumo_final = resumo
         except Exception as e:
-            # Não quebrar o fluxo de testes se a API falhar
             print(f"[AVISO] Falha no Gemini ({e}); usando fallback")
 
-    # Se não conseguiu gerar, usa fallback local
     if not resumo_final:
         resumo_final = fallback_resumo
 
-    # 🔒 Persiste no banco e confirma com refresh_from_db
     noticia.resumo = resumo_final
     noticia.save(update_fields=["resumo"])
     noticia.refresh_from_db(fields=["resumo"])
