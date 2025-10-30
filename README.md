@@ -112,7 +112,7 @@ Acesse [aqui](https://docs.google.com/document/d/1I6GuDLfA28WPspufjGadZ9lMw0YtNv
 
 ### Screencast [Testes automatizados]:
 
-Assista o vídeo [aqui](https://youtu.be/jNxKXBq799A)
+Assista o vídeo [aqui](https://youtu.be/QKtjWQmNwYo)
 
 ### Jira [Backlog]:
 
