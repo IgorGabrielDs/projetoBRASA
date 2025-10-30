@@ -12,6 +12,7 @@
 - [🚧 Primeira Entrega](#primeira-entrega)
 - [🚧 Segunda Entrega](#segunda-entrega)
 - [🚧 Terceira Entrega](#terceira-entrega)
+- [🚧 Quarta Entrega](#quarta-entrega)
 - [👨‍👩‍👧‍👦 Participantes](#participantes)  
 - [📜 Licença](#licenca)  
 
@@ -98,6 +99,23 @@ Assista o vídeo [aqui](https://youtu.be/0iSIh5SNHi4)
 ### Jira [Board]:
 
 <img width="1672" height="686" alt="image" src="https://github.com/user-attachments/assets/70f3aaa9-b426-40ae-bb32-0be45705dc06" />
+
+<h2 id="quarta-entrega">🚧 Quarta Entrega</h2>
+
+### Relatório Programação em Par
+
+Acesse [aqui](https://docs.google.com/document/d/1I6GuDLfA28WPspufjGadZ9lMw0YtNvXcSSkdo6xksBQ/edit?usp=sharing)
+
+### Jira [Backlog]:
+
+<img width="1726" height="504" alt="image" src="https://github.com/user-attachments/assets/01bded5c-a0ad-474c-be13-779266dcfdc1" />
+
+### Jira [Board]:
+
+<img width="1842" height="948" alt="image" src="https://github.com/user-attachments/assets/1cda6424-48fb-40df-a628-af78fe59b48b" />
+
+<img width="1836" height="929" alt="image" src="https://github.com/user-attachments/assets/e216920e-b9a8-489c-8573-542b43b9ac40" />
+
 
 <h2 id="participantes">👨‍👩‍👧‍👦 Participantes</h2>
 
