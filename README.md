@@ -106,6 +106,10 @@ Assista o vídeo [aqui](https://youtu.be/0iSIh5SNHi4)
 
 Acesse [aqui](https://docs.google.com/document/d/1I6GuDLfA28WPspufjGadZ9lMw0YtNvXcSSkdo6xksBQ/edit?usp=sharing)
 
+### Issue/Bug Tracker
+
+<img width="1820" height="963" alt="image" src="https://github.com/user-attachments/assets/cf0bf001-115d-4434-9ad2-576864615bf1" />
+
 ### Jira [Backlog]:
 
 <img width="1726" height="504" alt="image" src="https://github.com/user-attachments/assets/01bded5c-a0ad-474c-be13-779266dcfdc1" />
