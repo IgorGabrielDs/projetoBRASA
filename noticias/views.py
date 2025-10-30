@@ -1,6 +1,6 @@
 from datetime import timedelta
 from django.contrib import messages
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.core.cache import cache
@@ -274,7 +274,8 @@ def toggle_salvo(request, pk):
         return JsonResponse({"saved": saved, "label": label})
 
     messages.success(request, msg)
-    return redirect("noticias:detalhe", pk=pk)
+    # 🔧 corrigido o nome da rota:
+    return redirect("noticias:noticia_detalhe", pk=pk)
 
 
 # ==============================================
@@ -326,3 +327,26 @@ def resumir_noticia(request, pk):
     noticia.refresh_from_db(fields=["resumo"])
 
     return JsonResponse({"status": "ok", "resumo": noticia.resumo})
+
+
+# ==============================================
+# 🔐 E2E ONLY (DEBUG): login direto por username
+# ==============================================
+def e2e_login_as(request, username):
+    """
+    Habilitado apenas com DEBUG=True.
+    Faz login forçado do usuário <username> para estabilizar E2E.
+    Se não existir, cria com e-mail padrão.
+    """
+    if not getattr(settings, "DEBUG", False):
+        return HttpResponseForbidden("E2E login disabled in production")
+
+    U = get_user_model()
+    user, _ = U.objects.get_or_create(
+        username=username,
+        defaults={"email": f"{username}@ex.com"}
+    )
+    # Garante backend padrão e autentica a sessão
+    user.backend = "django.contrib.auth.backends.ModelBackend"
+    auth_login(request, user)
+    return redirect("noticias:index")
