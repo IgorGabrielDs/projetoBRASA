@@ -117,7 +117,12 @@
           <button type="button" id="btn-fechar" class="btn-ghost">Fechar</button>
         </div>
       </header>
-      <div id="resumo-text" class="resumo-text"></div>
+
+      <!-- ⭐ Importante para o teste: data-testid="resumo-text" -->
+      <div id="resumo-text" class="resumo-text" data-testid="resumo-text">
+        {{ noticia.resumo|default:"" }}
+      </div>
+
       <footer class="resumo-footer">
         <small id="resumo-meta" class="resumo-meta"></small>
       </footer>
@@ -152,5 +157,61 @@
   <script src="{% static 'noticias/js/votar.js' %}"></script>
   <script src="{% static 'noticias/js/salvar.js' %}"></script>
   <script src="{% static 'noticias/js/share.js' %}"></script>
+
+  <!-- Pequeno script para garantir o POST e atualização do DOM (faz o teste passar) -->
+  <script>
+  (function () {
+    const action = document.getElementById("resumo-action");
+    const btn = document.querySelector("[data-testid='btn-resumir']");
+    const panel = document.getElementById("resumo-panel");
+    const box = document.querySelector("[data-testid='resumo-text']") || document.getElementById("resumo-text");
+    if (!action || !btn || !box) return;
+
+    const url = action.dataset.url;
+
+    async function resumir() {
+      // loading state
+      btn.disabled = true;
+      btn.setAttribute("aria-busy", "true");
+      const status = document.getElementById("resumo-status");
+      if (status) status.textContent = "Gerando resumo...";
+
+      try {
+        const r = await fetch(url, { method: "POST" }); // csrf_exempt na view
+        const data = await r.json();
+        const texto = (data && (data.resumo || data.text || "")) || "";
+        if (texto) {
+          box.textContent = texto;        // <- O teste valida essa mudança
+          if (panel) {
+            panel.classList.remove("is-hidden");
+            panel.setAttribute("aria-hidden", "false");
+            btn.setAttribute("aria-expanded", "true");
+          }
+          if (status) status.textContent = "Resumo pronto.";
+        } else {
+          box.textContent = "Resumo indisponível no momento.";
+          if (status) status.textContent = "Não foi possível gerar resumo.";
+        }
+      } catch (e) {
+        box.textContent = "Erro ao gerar resumo.";
+        if (status) status.textContent = "Erro.";
+      } finally {
+        btn.disabled = false;
+        btn.removeAttribute("aria-busy");
+        setTimeout(() => { if (status) status.textContent = ""; }, 1500);
+      }
+    }
+
+    btn.addEventListener("click", resumir);
+
+    // (opcional) se estiver vazio, gera automaticamente ao abrir
+    if (!box.textContent.trim()) {
+      // descomente a linha abaixo se quiser auto-resumir ao abrir
+      // resumir();
+    }
+  })();
+  </script>
+
+  <!-- mantém seu arquivo de comportamento original (se houver lógica adicional) -->
   <script src="{% static 'noticias/js/resumo.js' %}"></script>
 {% endblock %}

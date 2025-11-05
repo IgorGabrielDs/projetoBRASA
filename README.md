@@ -12,6 +12,7 @@
 - [🚧 Primeira Entrega](#primeira-entrega)
 - [🚧 Segunda Entrega](#segunda-entrega)
 - [🚧 Terceira Entrega](#terceira-entrega)
+- [🚧 Quarta Entrega](#quarta-entrega)
 - [👨‍👩‍👧‍👦 Participantes](#participantes)  
 - [📜 Licença](#licenca)  
 
@@ -59,7 +60,6 @@ Aqui está nosso Screencast disponível também no [Youtube](https://youtu.be/fe
 
 https://github.com/user-attachments/assets/6984ef0b-49ed-4e25-a5ca-b3eed48bce9e
 
-
 Para acessar nosso site e experimentar além do nosso Screencast [clique aqui](https://projetobrasa.azurewebsites.net)
 
 ### Relatório Programação em Par
@@ -72,9 +72,25 @@ Acesse aqui o nosso [Relatório](https://docs.google.com/document/d/1EDIJgTI7IFe
 
 <h2 id="terceira-entrega">🚧 Terceira Entrega</h2>
 
+### Issue/Bug Tracker
+
+<img width="1726" height="855" alt="image" src="https://github.com/user-attachments/assets/00c1a4a6-b4f2-4147-930f-0eb6ead64521" />
+
+### Relatório Programação em Par
+
+Acesse [aqui](https://docs.google.com/document/d/1ZDODOwvhNofBw9hyBM5MrxyhSyyR3vqJIBW_SehDaXQ/edit?usp=sharing)
+
 ### Screencast [Testes automatizados]:
 
-https://github.com/user-attachments/assets/9be54ac9-ebff-4348-979b-f6a932062cd2
+Assista o vídeo [aqui](https://youtu.be/cwic5YciXnk)
+
+### Screencast [CI/CD]:
+
+Acesse também no nosso canal do [youtube](https://youtu.be/aTHcLaANkTI)
+
+### Screencast [Funcionalidades]
+
+Assista o vídeo [aqui](https://youtu.be/0iSIh5SNHi4)
 
 ### Jira [Backlog]:
 
@@ -83,6 +99,31 @@ https://github.com/user-attachments/assets/9be54ac9-ebff-4348-979b-f6a932062cd2
 ### Jira [Board]:
 
 <img width="1672" height="686" alt="image" src="https://github.com/user-attachments/assets/70f3aaa9-b426-40ae-bb32-0be45705dc06" />
+
+<h2 id="quarta-entrega">🚧 Quarta Entrega</h2>
+
+### Relatório Programação em Par
+
+Acesse [aqui](https://docs.google.com/document/d/1I6GuDLfA28WPspufjGadZ9lMw0YtNvXcSSkdo6xksBQ/edit?usp=sharing)
+
+### Issue/Bug Tracker
+
+<img width="1820" height="963" alt="image" src="https://github.com/user-attachments/assets/cf0bf001-115d-4434-9ad2-576864615bf1" />
+
+### Screencast [Testes automatizados]:
+
+Assista o vídeo [aqui](https://youtu.be/QKtjWQmNwYo)
+
+### Jira [Backlog]:
+
+<img width="1726" height="504" alt="image" src="https://github.com/user-attachments/assets/01bded5c-a0ad-474c-be13-779266dcfdc1" />
+
+### Jira [Board]:
+
+<img width="1842" height="948" alt="image" src="https://github.com/user-attachments/assets/1cda6424-48fb-40df-a628-af78fe59b48b" />
+
+<img width="1836" height="929" alt="image" src="https://github.com/user-attachments/assets/e216920e-b9a8-489c-8573-542b43b9ac40" />
+
 
 <h2 id="participantes">👨‍👩‍👧‍👦 Participantes</h2>
 

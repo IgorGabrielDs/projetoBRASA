@@ -28,41 +28,53 @@
 
   function setLoading(on) {
     busy = on;
-    btn.disabled = on;
-    if (on) {
-      status.innerHTML = '<span class="resumo-loading"><span class="resumo-spinner" aria-hidden="true"></span><span>Gerando resumo…</span></span>';
-    } else {
-      status.textContent = '';
+    if (btn) btn.disabled = on;
+    if (status) {
+      status.innerHTML = on
+        ? '<span class="resumo-loading"><span class="resumo-spinner" aria-hidden="true"></span><span>Gerando resumo…</span></span>'
+        : '';
     }
   }
 
   function openPanel() {
+    if (!panel) return;
     panel.classList.remove('is-hidden');
     panel.setAttribute('aria-hidden', 'false');
-    btn.setAttribute('aria-expanded', 'true');
+    if (btn) btn.setAttribute('aria-expanded', 'true');
   }
 
   function closePanel() {
+    if (!panel) return;
     panel.classList.add('is-hidden');
     panel.setAttribute('aria-hidden', 'true');
-    btn.setAttribute('aria-expanded', 'false');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
   }
+
+  // 🟢 Ao carregar a página: se já existe resumo renderizado pelo backend, apenas exiba o painel
+  document.addEventListener('DOMContentLoaded', () => {
+    if (panel && txt && txt.textContent.trim()) {
+      openPanel();
+      // ⚠️ NÃO LIMPE o conteúdo aqui
+    }
+  });
 
   async function gerarResumo() {
     if (busy) return;
     setLoading(true);
     openPanel();
-    txt.textContent = '';
-    meta.textContent = '';
+
+    // ❌ Não limpe o texto se já houver algo. Deixe visível até chegar o novo.
+    // Se quiser dar feedback visual, pode usar um spinner no status (já feito acima).
 
     try {
       const res = await fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'X-CSRFToken': getCSRFToken()
+          // Não é obrigatório enviar Content-Type JSON já que o backend ignora o body (csrf_exempt),
+          // mas manter simples evita preflight em alguns ambientes.
         },
-        body: JSON.stringify({})
+        body: '' // corpo vazio; a view não usa o payload
       });
 
       if (res.status === 401) {
@@ -72,29 +84,43 @@
       if (!res.ok) {
         throw new Error('Falha ao gerar resumo (' + res.status + ')');
       }
+
       const data = await res.json();
-      const summary = (data.resumo || '').trim();   // <- backend responde {"resumo": "..."}
-      txt.textContent = summary || 'Não foi possível gerar um resumo para esta notícia.';
-      // meta.textContent pode ficar vazio; seu backend atual não retorna tokens
+      const summary = (data && (data.resumo || data.text || '')).trim();
+
+      if (txt) {
+        txt.textContent = summary || 'Não foi possível gerar um resumo para esta notícia.';
+      }
+      // meta.textContent pode ficar vazio; seu backend atual não retorna tokens/tempo/etc.
     } catch (err) {
       console.error(err);
-      txt.textContent = 'Ocorreu um erro ao gerar o resumo. Tente novamente.';
-      meta.textContent = '';
+      if (txt) txt.textContent = 'Ocorreu um erro ao gerar o resumo. Tente novamente.';
+      if (meta) meta.textContent = '';
     } finally {
       setLoading(false);
+      // limpa o status após um curto período
+      if (status) setTimeout(() => (status.textContent = ''), 1500);
     }
   }
 
-  btn.addEventListener('click', gerarResumo);
-  btnCopiar.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(txt.textContent || '');
-      status.textContent = 'Resumo copiado!';
-      setTimeout(() => (status.textContent = ''), 1500);
-    } catch {
-      status.textContent = 'Não foi possível copiar.';
-      setTimeout(() => (status.textContent = ''), 1500);
-    }
-  });
-  btnFechar.addEventListener('click', closePanel);
+  if (btn) btn.addEventListener('click', gerarResumo);
+
+  if (btnCopiar) {
+    btnCopiar.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText((txt && txt.textContent) || '');
+        if (status) {
+          status.textContent = 'Resumo copiado!';
+          setTimeout(() => (status.textContent = ''), 1500);
+        }
+      } catch {
+        if (status) {
+          status.textContent = 'Não foi possível copiar.';
+          setTimeout(() => (status.textContent = ''), 1500);
+        }
+      }
+    });
+  }
+
+  if (btnFechar) btnFechar.addEventListener('click', closePanel);
 })();
