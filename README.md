@@ -114,6 +114,10 @@ Acesse [aqui](https://docs.google.com/document/d/1I6GuDLfA28WPspufjGadZ9lMw0YtNv
 
 Assista o vídeo [aqui](https://youtu.be/QKtjWQmNwYo)
 
+### Screencast [CI/CD]:
+
+Acesse também no nosso canal do [youtube](https://youtu.be/ctTBD5bOBUw)
+
 ### Jira [Backlog]:
 
 <img width="1726" height="504" alt="image" src="https://github.com/user-attachments/assets/01bded5c-a0ad-474c-be13-779266dcfdc1" />
