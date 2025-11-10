@@ -5,11 +5,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-
-# =========================
-# Helpers
-# =========================
-
 def _login_via_cookie(chrome, base_url, username="aluno", password="12345678"):
     """
     Realiza login usando o Django Test Client e injeta o cookie de sessão no Chrome.
@@ -23,16 +18,13 @@ def _login_via_cookie(chrome, base_url, username="aluno", password="12345678"):
     session_cookie = client.cookies.get("sessionid")
     assert session_cookie, "Cookie 'sessionid' não encontrado após client.login()"
 
-    # Precisa primeiro visitar o domínio para poder setar cookie no navegador
     chrome.get(f"{base_url}/")
-    # Injeta o cookie de sessão no domínio atual
     chrome.add_cookie({
         "name": "sessionid",
         "value": session_cookie.value,
         "path": "/",
         "httpOnly": True,
     })
-    # Recarrega para aplicar a sessão
     chrome.get(f"{base_url}/")
 
 
@@ -48,7 +40,6 @@ def _wait_para_voce_block(chrome, timeout=20):
         EC.presence_of_element_located((By.CSS_SELECTOR, "body"))
     )
 
-    # tenta a section semântica (se existir no template)
     try:
         WebDriverWait(chrome, 6).until(
             EC.presence_of_element_located(
@@ -58,21 +49,18 @@ def _wait_para_voce_block(chrome, timeout=20):
     except Exception:
         pass
 
-    # tenta a UL com itens
     try:
         ul = WebDriverWait(chrome, 6).until(
             EC.presence_of_element_located((By.CSS_SELECTOR, "[data-testid='para-voce']"))
         )
         return ul, False
     except Exception:
-        # tenta estado vazio
         try:
             empty = WebDriverWait(chrome, 6).until(
                 EC.presence_of_element_located((By.CSS_SELECTOR, "[data-testid='para-voce-empty']"))
             )
             return empty, True
         except Exception:
-            # diagnóstico útil no log
             try:
                 print("\n--- DIAGNÓSTICO URL ---\n", chrome.current_url)
                 print("\n--- DIAGNÓSTICO HTML (início) ---\n", chrome.page_source[:2000])
@@ -84,14 +72,8 @@ def _wait_para_voce_block(chrome, timeout=20):
 def _textos_de_headline(el):
     itens = el.find_elements(By.CSS_SELECTOR, ".headline, a.headline")
     if not itens:
-        # fallback para <li> quando não há classe .headline
         itens = el.find_elements(By.CSS_SELECTOR, "li")
     return [i.text.strip() for i in itens if i.text.strip()]
-
-
-# =========================
-# Testes
-# =========================
 
 @pytest.mark.django_db
 def test_recomendadas_por_afinidade_exclui_vistos_e_prioriza_assunto(chrome, live_url, user):
@@ -171,7 +153,6 @@ def test_nao_recomenda_itens_vistos_por_voto_ou_salvo(chrome, live_url, user):
     n_recom = Noticia.objects.create(titulo="Tec Recomendada", conteudo="...", criado_em=timezone.now())
     n_recom.assuntos.add(tec)
 
-    # marca 'vistos'
     Voto.objects.create(noticia=n_vista_vote, usuario=user, valor=1)
     Salvo.objects.create(noticia=n_vista_salvo, usuario=user)
 
@@ -199,7 +180,6 @@ def test_prioriza_match_count_de_assuntos(chrome, live_url, user):
     tec = Assunto.objects.create(nome="Tecnologia", slug="tecnologia")
     mundo = Assunto.objects.create(nome="Mundo", slug="mundo")
 
-    # ---- Candidatas (não votar nelas!)
     n2 = Noticia.objects.create(
         titulo="Match 2 (Tec+Mundo)",
         conteudo="...",
@@ -213,8 +193,6 @@ def test_prioriza_match_count_de_assuntos(chrome, live_url, user):
         criado_em=timezone.now()
     )
     n1.assuntos.add(tec)
-
-    # ---- Sementes para gerar afinidade sem marcar candidatas como 'vistas'
     seed_tec = Noticia.objects.create(
         titulo="Seed Tec",
         conteudo="...",
@@ -229,7 +207,6 @@ def test_prioriza_match_count_de_assuntos(chrome, live_url, user):
     )
     seed_mundo.assuntos.add(mundo)
 
-    # Votos do usuário gerando sinais de assuntos (Tec e Mundo)
     Voto.objects.create(noticia=seed_tec, usuario=user, valor=1)
     Voto.objects.create(noticia=seed_mundo, usuario=user, valor=1)
 
@@ -239,7 +216,6 @@ def test_prioriza_match_count_de_assuntos(chrome, live_url, user):
     assert not is_empty, "Seção 'Para você' não deveria estar vazia; há afinidade e candidatas elegíveis."
 
     textos = _textos_de_headline(ul_or_empty)
-    # Sequência de títulos no bloco:
     s = " -> ".join(textos)
     assert s.find("Match 2 (Tec+Mundo)") != -1 and s.find("Match 1 (Tec)") != -1, f"Esperava as duas candidatas. Sequência: {s}"
     assert s.find("Match 2 (Tec+Mundo)") < s.find("Match 1 (Tec)"), f"Match 2 deveria vir antes por maior match_count. Sequência: {s}"
@@ -260,21 +236,18 @@ def test_desempate_por_score_quando_match_igual(chrome, live_url, user):
     b = Noticia.objects.create(titulo="B - score baixo", conteudo="...", criado_em=timezone.now())
     b.assuntos.add(tec)
 
-    # sinais do usuário (gera afinidade com Tec)
-    Voto.objects.create(noticia=a, usuario=user, valor=1)  # também serve p/ "visto", mas vamos não salvá-la
-    # Para não excluir por 'visto', criamos sinais em outra notícia Tec fictícia:
+    Voto.objects.create(noticia=a, usuario=user, valor=1)
     dummy = Noticia.objects.create(titulo="Dummy Afinidade", conteudo="...", criado_em=timezone.now())
     dummy.assuntos.add(tec)
     Voto.objects.create(noticia=dummy, usuario=user, valor=1)
 
-    # votos de outros usuários para score
     from django.contrib.auth import get_user_model
     U = get_user_model()
     u1 = U.objects.create_user("u1", password="x")
     u2 = U.objects.create_user("u2", password="x")
     Voto.objects.create(noticia=a, usuario=u1, valor=1)
-    Voto.objects.create(noticia=a, usuario=u2, valor=1)  # A tem score maior
-    Voto.objects.create(noticia=b, usuario=u1, valor=1)  # B tem score menor
+    Voto.objects.create(noticia=a, usuario=u2, valor=1)
+    Voto.objects.create(noticia=b, usuario=u1, valor=1)
 
     _login_via_cookie(chrome, live_url)
 
@@ -285,8 +258,6 @@ def test_desempate_por_score_quando_match_igual(chrome, live_url, user):
     s = " -> ".join(textos)
     if s.find("A - score alto") != -1 and s.find("B - score baixo") != -1:
         assert s.find("A - score alto") < s.find("B - score baixo"), f"Esperava A antes de B por score. Sequência: {s}"
-    # Se não aparecerem ambos (por filtros de 'vistos'), ao menos A deve aparecer antes de outras.
-
 
 @pytest.mark.django_db
 def test_limite_maximo_de_itens_recomendados_eh_8(chrome, live_url, user):
@@ -299,12 +270,10 @@ def test_limite_maximo_de_itens_recomendados_eh_8(chrome, live_url, user):
 
     tec = Assunto.objects.create(nome="Tecnologia", slug="tecnologia")
 
-    # sinal de afinidade
     seed = Noticia.objects.create(titulo="Seed Tec", conteudo="...", criado_em=timezone.now())
     seed.assuntos.add(tec)
     Voto.objects.create(noticia=seed, usuario=user, valor=1)
 
-    # produz 12 candidatas recomendáveis
     for i in range(12):
         n = Noticia.objects.create(titulo=f"Tec Item {i+1:02d}", conteudo="...", criado_em=timezone.now())
         n.assuntos.add(tec)
@@ -314,7 +283,6 @@ def test_limite_maximo_de_itens_recomendados_eh_8(chrome, live_url, user):
     ul_or_empty, is_empty = _wait_para_voce_block(chrome)
     assert not is_empty
 
-    # conta itens exibidos (por <li> ou headlines)
     itens = ul_or_empty.find_elements(By.CSS_SELECTOR, "li")
     if not itens:
         itens = ul_or_empty.find_elements(By.CSS_SELECTOR, ".headline, a.headline")
@@ -340,7 +308,6 @@ def test_fallback_final_quando_nao_ha_populares_nem_sinais_usa_ultimas(chrome, l
     _login_via_cookie(chrome, live_url)
 
     ul_or_empty, is_empty = _wait_para_voce_block(chrome)
-    # Pode aparecer vazio se o template não renderiza "antigas", mas o fallback final deveria preencher
     assert not is_empty, "Fallback final deveria renderizar últimas notícias."
 
     textos = _textos_de_headline(ul_or_empty)
