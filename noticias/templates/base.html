@@ -12,11 +12,9 @@
 </head>
 <body>
 
-  <!-- Topo BRASA -->
   <header class="topbar">
     <div class="topbar-inner">
 
-      <!-- Botão hamburguer -->
       <button class="hamburger" aria-label="Abrir filtros"
               aria-controls="filters-drawer" aria-expanded="false">
         <span class="sr-only">Abrir filtros</span>
@@ -25,10 +23,8 @@
         </svg>
       </button>
 
-      <!-- Logo -->
       <a class="logo" href="{% url 'noticias:index' %}">BRASA<span class="accent">•</span></a>
 
-      <!-- Navegação -->
       <nav class="topnav" aria-label="Seções">
         <a href="{% url 'noticias:index' %}" class="nav-link is-active">Início</a>
         <a href="#" class="nav-link">Brasil</a>
@@ -40,7 +36,6 @@
         {% endif %}
       </nav>
 
-      <!-- Busca -->
       <form class="search" role="search" aria-label="Buscar" action="{% url 'noticias:index' %}" method="get">
         <input type="search" name="q" placeholder="Buscar no BRASA" aria-label="Buscar" value="{{ request.GET.q }}">
         <button type="submit" aria-label="Pesquisar">
@@ -50,7 +45,6 @@
         </button>
       </form>
 
-      <!-- Ações usuário (SEPARADO DO FORM DE BUSCA) -->
       <div class="user-actions-inline">
         {% if user.is_authenticated %}
           <span class="hi">Olá, {{ user.username }}</span>
@@ -66,7 +60,6 @@
     </div>
   </header>
 
-  <!-- Drawer de filtros -->
   <aside id="filters-drawer" class="drawer" aria-hidden="true">
     <div class="drawer-header">
       <h2>Filtros</h2>
@@ -114,7 +107,6 @@
 
   <div class="drawer-backdrop" hidden></div>
 
-  <!-- Conteúdo principal -->
   <main class="container">
     {% block content %}{% endblock %}
   </main>
