@@ -139,32 +139,26 @@ def _apply_filters_or_fallback(driver, live_url: str, value_slug: str):
 
 
 def test_filtra_por_assunto(chrome, live_url, db):
-    # arrange
     _mk_noticia(db, "AI barateia chips", "Tecnologia")
     _mk_noticia(db, "Clássico termina empatado", "Esportes")
 
     chrome.get(live_url + "/")
 
-    # abre/garante filtros visíveis
     _force_show_filters(chrome)
 
     value = "tecnologia"
     ok = _click_checkbox_robusto(chrome, value)
     if not ok:
-        # Se não conseguir interagir com o checkbox, segue por querystring
         sep = "&" if "?" in chrome.current_url else "?"
         chrome.get(chrome.current_url.split("?")[0] + f"{sep}assunto={value}")
     else:
         _apply_filters_or_fallback(chrome, live_url, value)
 
-    # espera URL conter o parâmetro (seja via submit ou fallback)
     WebDriverWait(chrome, 8).until(lambda d: f"assunto={value}" in d.current_url)
 
-    # coleta cards
     cards = chrome.find_elements(By.CSS_SELECTOR, "[data-testid='article-card'], article")
     assert cards, "Nenhum card encontrado após aplicar o filtro."
 
-    # Aprovação mais tolerante: pelo menos 1 card precisa ter 'tecnologia' no chip
     tem_tecnologia = 0
     for c in cards:
         chips = c.find_elements(By.CSS_SELECTOR, "[data-testid='chip-assunto'], .chip-assunto, .assunto")
