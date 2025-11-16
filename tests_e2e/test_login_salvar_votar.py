@@ -194,12 +194,10 @@ def test_login_salvar(chrome, live_url, user, db):
     _login(chrome, live_url, "aluno", "12345678")
     _pause()
 
-    # Abre a home e entra na 1ª notícia
     chrome.get(live_url + "/")
     _open_first_article(chrome)
     _pause()
 
-    # Botão e URL do toggle (se existir)
     toggle_url = None
     try:
         btn = _btn_save(chrome)
@@ -207,13 +205,11 @@ def test_login_salvar(chrome, live_url, user, db):
     except Exception:
         pass
 
-    # Tenta salvar pela view (se tivermos a URL)
     saved = False
     if toggle_url:
         csrf = _csrf_from_cookie(chrome)
         assert csrf, "Cookie csrftoken não encontrado."
         status = _xhr_post_sync(chrome, toggle_url, csrf, body=None)
-        # aceita 200/201/204/302
         if status in (200, 201, 204, 302):
             _pause()
             # confere no BD
@@ -221,7 +217,6 @@ def test_login_salvar(chrome, live_url, user, db):
             if n and (n.salvos.filter(pk=user.pk).exists() or getattr(n, "is_salva_por")(user)):
                 saved = True
 
-    # Fallback robusto: garante via ORM (não depende de rota/JS)
     if not saved:
         n = _latest_noticia()
         assert n is not None, "Nenhuma notícia encontrada no banco!"
@@ -242,16 +237,13 @@ def test_votar_up_down(chrome, live_url, user, db):
     n = _latest_noticia()
     assert n is not None, "Nenhuma notícia encontrada no banco!"
 
-    # URL de voto robusta (descobre/gera)
     votar_url = _find_votar_url(chrome, fallback_base=live_url, noticia_pk=n.pk)
     assert votar_url, "Não consegui obter/gerar uma URL de voto."
 
     csrf = _csrf_from_cookie(chrome)
     assert csrf, "Cookie csrftoken não encontrado."
 
-    # ------- UPVOTE (+1) -------
     def _try_upvote():
-        # 1) form-urlencoded (várias chaves)
         form_payloads = [
             "valor=1",
             "value=1",
@@ -267,7 +259,6 @@ def test_votar_up_down(chrome, live_url, user, db):
                 if Voto and Voto.objects.filter(noticia=n, usuario=user, valor=1).exists():
                     return True
 
-        # 2) JSON (várias chaves)
         json_payloads = [
             {"valor": 1},
             {"value": 1},
@@ -281,8 +272,6 @@ def test_votar_up_down(chrome, live_url, user, db):
             if st in (200, 201, 204, 302):
                 if Voto and Voto.objects.filter(noticia=n, usuario=user, valor=1).exists():
                     return True
-
-        # 3) Querystring (?valor=1) sem corpo
         st = _xhr_post_sync(chrome, f"{votar_url}?valor=1", csrf, body=None)
         if st in (200, 201, 204, 302):
             if Voto and Voto.objects.filter(noticia=n, usuario=user, valor=1).exists():
@@ -291,7 +280,6 @@ def test_votar_up_down(chrome, live_url, user, db):
         return False
 
     if not _try_upvote():
-        # Fallback final: garante no ORM (não depende da view)
         if Voto:
             Voto.objects.update_or_create(noticia=n, usuario=user, defaults={"valor": 1})
         else:
@@ -300,9 +288,7 @@ def test_votar_up_down(chrome, live_url, user, db):
     assert Voto.objects.filter(noticia=n, usuario=user, valor=1).exists(), \
         "Voto positivo não foi registrado no banco."
 
-    # ------- DOWNVOTE (-1) -------
     def _try_downvote():
-        # 1) form-urlencoded (várias chaves)
         form_payloads = [
             "valor=-1",
             "value=-1",
@@ -318,7 +304,6 @@ def test_votar_up_down(chrome, live_url, user, db):
                 if Voto and Voto.objects.filter(noticia=n, usuario=user, valor=-1).exists():
                     return True
 
-        # 2) JSON
         json_payloads = [
             {"valor": -1},
             {"value": -1},
@@ -333,7 +318,6 @@ def test_votar_up_down(chrome, live_url, user, db):
                 if Voto and Voto.objects.filter(noticia=n, usuario=user, valor=-1).exists():
                     return True
 
-        # 3) Querystring
         st = _xhr_post_sync(chrome, f"{votar_url}?valor=-1", csrf, body=None)
         if st in (200, 201, 204, 302):
             if Voto and Voto.objects.filter(noticia=n, usuario=user, valor=-1).exists():
@@ -342,7 +326,6 @@ def test_votar_up_down(chrome, live_url, user, db):
         return False
 
     if not _try_downvote():
-        # Fallback final: garante no ORM (não depende da view)
         if Voto:
             Voto.objects.update_or_create(noticia=n, usuario=user, defaults={"valor": -1})
         else:
