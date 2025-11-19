@@ -22,20 +22,17 @@
           <path d="M3 6h18v2H3zM3 11h18v2H3zM3 16h18v2H3z"/>
         </svg>
       </button>
-
       <a class="logo" href="{% url 'noticias:index' %}">BRASA<span class="accent">•</span></a>
-
       <nav class="topnav" aria-label="Seções">
         <a href="{% url 'noticias:index' %}" class="nav-link is-active">Início</a>
         <a href="#" class="nav-link">Brasil</a>
         <a href="#" class="nav-link">Mundo</a>
         <a href="#" class="nav-link">Tecnologia</a>
-
+        
         {% if user.is_authenticated %}
           <a href="{% url 'noticias:salvos' %}" class="nav-link">Salvos</a>
         {% endif %}
       </nav>
-
       <form class="search" role="search" aria-label="Buscar" action="{% url 'noticias:index' %}" method="get">
         <input type="search" name="q" placeholder="Buscar no BRASA" aria-label="Buscar" value="{{ request.GET.q }}">
         <button type="submit" aria-label="Pesquisar">
@@ -44,7 +41,6 @@
           </svg>
         </button>
       </form>
-
       <div class="user-actions-inline">
         {% if user.is_authenticated %}
           <span class="hi">Olá, {{ user.username }}</span>
@@ -59,7 +55,6 @@
       </div>
     </div>
   </header>
-
   <aside id="filters-drawer" class="drawer" aria-hidden="true">
     <div class="drawer-header">
       <h2>Filtros</h2>
